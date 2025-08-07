@@ -6,6 +6,11 @@ export interface ConceptNode {
   color: string;
   children?: ConceptNode[];
   content?: {
+    overview?: string;
+    howItWorks?: string;
+    applications?: string[];
+    advantages?: string[];
+    limitations?: string[];
     codeExample?: string;
     codeLanguage?: string;
     links?: { title: string; url: string }[];
@@ -104,12 +109,49 @@ print(f"Prediction for x=6: {prediction[0]}")`,
                   category: "algorithms",
                   color: "195 85% 60%",
                   content: {
-                    codeExample: `# Simple Linear Regression
-y = mx + b
+                    overview: "Linear regression is one of the simplest and most widely used machine learning algorithms. It models the relationship between a dependent variable and independent variables by fitting a linear equation to observed data.",
+                    howItWorks: "The algorithm finds the best-fitting straight line through the data points by minimizing the sum of squared residuals. It uses the least squares method to determine the optimal slope and intercept that minimize prediction errors.",
+                    applications: [
+                      "Predicting house prices based on features",
+                      "Sales forecasting in business",
+                      "Medical research for dose-response relationships",
+                      "Economic modeling and analysis"
+                    ],
+                    advantages: [
+                      "Simple to understand and implement",
+                      "Fast training and prediction",
+                      "No hyperparameter tuning required",
+                      "Provides interpretable coefficients",
+                      "Works well for linear relationships"
+                    ],
+                    limitations: [
+                      "Assumes linear relationship between variables",
+                      "Sensitive to outliers",
+                      "Requires feature scaling for optimal performance",
+                      "May underfit complex, non-linear data",
+                      "Assumes independence of errors"
+                    ],
+                    codeExample: `from sklearn.linear_model import LinearRegression
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Multiple Linear Regression  
-y = b0 + b1*x1 + b2*x2 + ... + bn*xn`,
-                    codeLanguage: "python"
+# Generate sample data
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2.1, 3.9, 6.1, 8.0, 9.9])
+
+# Create and train model
+model = LinearRegression()
+model.fit(X, y)
+
+# Make predictions
+predictions = model.predict(X)
+print(f"Slope: {model.coef_[0]:.2f}")
+print(f"Intercept: {model.intercept_:.2f}")`,
+                    codeLanguage: "python",
+                    links: [
+                      { title: "Scikit-learn Linear Regression", url: "https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares" },
+                      { title: "Linear Regression Math Explained", url: "https://en.wikipedia.org/wiki/Linear_regression" }
+                    ]
                   }
                 },
                 {
@@ -186,7 +228,48 @@ y = b0 + b1*x1 + b2*x2 + ... + bn*xn`,
                   title: "K-Means",
                   description: "Partitions data into k clusters based on similarity.",
                   category: "algorithms",
-                  color: "195 85% 60%"
+                  color: "195 85% 60%",
+                  content: {
+                    overview: "K-Means is one of the most popular unsupervised learning algorithms used for clustering. It partitions data into k clusters by grouping similar data points together and identifying underlying patterns.",
+                    howItWorks: "The algorithm works by randomly placing k centroids in the data space, then iteratively assigning each data point to the nearest centroid and updating centroid positions until convergence. It minimizes the within-cluster sum of squares.",
+                    applications: [
+                      "Customer segmentation for marketing",
+                      "Image segmentation in computer vision",
+                      "Market research and data analysis",
+                      "Data compression and vector quantization"
+                    ],
+                    advantages: [
+                      "Simple and easy to implement",
+                      "Computationally efficient for large datasets",
+                      "Works well with spherical clusters",
+                      "Guaranteed convergence",
+                      "Memory efficient"
+                    ],
+                    limitations: [
+                      "Requires pre-defining number of clusters (k)",
+                      "Sensitive to initial centroid placement",
+                      "Struggles with non-spherical cluster shapes",
+                      "Affected by outliers and noise",
+                      "Assumes clusters have similar sizes"
+                    ],
+                    codeExample: `from sklearn.cluster import KMeans
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate sample data
+X = np.random.rand(100, 2)
+
+# Apply K-Means clustering
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(X)
+
+# Get cluster centers
+centers = kmeans.cluster_centers_
+
+print(f"Cluster centers: {centers}")
+print(f"Inertia (WCSS): {kmeans.inertia_}")`,
+                    codeLanguage: "python"
+                  }
                 },
                 {
                   id: "hierarchical",
