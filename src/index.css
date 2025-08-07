@@ -2,41 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* AI/ML Concept Explorer Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 240 6% 97%;
+    --foreground: 225 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 225 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 225 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 258 96% 67%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 225 10% 96%;
+    --secondary-foreground: 225 20% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 225 10% 96%;
+    --muted-foreground: 225 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 258 96% 67%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 225 15% 88%;
+    --input: 225 15% 88%;
+    --ring: 258 96% 67%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* AI/ML Category Colors */
+    --ai-root: 258 96% 67%;
+    --ml-core: 215 100% 65%;
+    --supervised: 25 95% 60%;
+    --unsupervised: 315 85% 70%;
+    --deep-learning: 210 100% 55%;
+    --nlp: 165 85% 55%;
+    --computer-vision: 45 95% 65%;
+    --reinforcement: 285 85% 65%;
+    --algorithms: 195 85% 60%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(258 96% 67%), hsl(215 100% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(225 10% 96%), hsl(0 0% 100%));
+    --gradient-node: linear-gradient(135deg, hsl(var(--node-color) / 0.1), hsl(var(--node-color) / 0.05));
+    
+    /* Shadows */
+    --shadow-node: 0 4px 20px hsl(var(--node-color) / 0.15);
+    --shadow-card: 0 10px 40px hsl(225 20% 15% / 0.08);
+    --shadow-elevated: 0 20px 60px hsl(225 20% 15% / 0.12);
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +124,90 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Component Classes */
+@layer components {
+  .concept-node {
+    @apply relative flex items-center justify-center p-6 rounded-2xl;
+    @apply border border-border/50 cursor-pointer;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:scale-105 hover:shadow-lg;
+    background: hsl(var(--node-color) / 0.1);
+    border-color: hsl(var(--node-color) / 0.3);
+    box-shadow: var(--shadow-node);
+  }
+  
+  .concept-node:hover {
+    background: hsl(var(--node-color) / 0.15);
+    border-color: hsl(var(--node-color) / 0.5);
+    transform: translateY(-2px) scale(1.02);
+  }
+  
+  .content-card {
+    @apply bg-card rounded-2xl p-8 border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .breadcrumb-nav {
+    @apply flex items-center gap-2 text-sm text-muted-foreground mb-8;
+  }
+  
+  .breadcrumb-item {
+    @apply px-3 py-1 rounded-lg cursor-pointer transition-colors;
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .breadcrumb-separator {
+    @apply text-muted-foreground/50;
+  }
+  
+  .stage-container {
+    @apply min-h-screen flex flex-col items-center justify-center p-8;
+    @apply transition-all duration-400 ease-in-out;
+  }
+  
+  .node-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full;
+  }
+  
+  .code-block {
+    @apply bg-muted rounded-xl p-4 text-sm font-mono overflow-x-auto;
+    @apply border border-border/50;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  
+  .slide-in {
+    animation: slideIn 0.4s ease-in-out;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
