@@ -1,3 +1,5 @@
+import katex from 'katex';
+
 export interface ConceptNode {
   id: string;
   title: string;
@@ -10,6 +12,41 @@ export interface ConceptNode {
   advantages?: string[];
   limitations?: string[];
   codeExample?: string;
+}
+
+// Helper function to render LaTeX to HTML
+function renderLatex(mathString: string): string {
+  try {
+    return katex.renderToString(mathString, {
+      throwOnError: false,
+    });
+  } catch (e) {
+    console.error("Error rendering LaTeX:", e);
+    return mathString; // Fallback: return the raw string
+  }
+}
+
+// Helper function to parse InlineMath and BlockMath tags
+function parseMathComponents(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/<InlineMath math="([^"]*)" \/>/g, (_, math) => renderLatex(math))
+    .replace(/<BlockMath math="([^"]*)" \/>/g, (_, math) => renderLatex(`\\displaystyle ${math}`));
+}
+
+// Recursively parse and render LaTeX for all nodes
+function parseConceptTree(node: ConceptNode): ConceptNode {
+  const parsedNode = { ...node };
+  if (parsedNode.overview) {
+    parsedNode.overview = parseMathComponents(parsedNode.overview);
+  }
+  if (parsedNode.howItWorks) {
+    parsedNode.howItWorks = parseMathComponents(parsedNode.howItWorks);
+  }
+  if (parsedNode.children) {
+    parsedNode.children = parsedNode.children.map(parseConceptTree);
+  }
+  return parsedNode;
 }
 
 export const aiConceptTree: ConceptNode = {
@@ -61,11 +98,17 @@ export const aiConceptTree: ConceptNode = {
                   children: []
                 },
                 {
-                  id: 'linear-regression', 
-                  title: 'Linear Regression', 
-                  color: "bg-gradient-to-br from-teal-500 to-cyan-600",
-                  description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
-                  overview: 'Simple linear regression models the dependent variable $y$ as a linear function of a single predictor $x$: $y = \\beta_0 + \\beta_1 x + \\varepsilon$, where $\\beta_0$ is the intercept, $\\beta_1$ is the slope, and $\\varepsilon$ is a random error term. The model assumes a linear association and additive noise.',
+                id: 'linear-regression',
+                title: 'Linear Regression',
+                color: "bg-gradient-to-br from-teal-500 to-cyan-600",
+                description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
+                overview: 
+                  `
+                  <p>
+                    Simple linear regression models the dependent variable <InlineMath math="y" /> as a linear function of a single predictor <InlineMath math="x" />:
+                    <BlockMath math="y = beta_0 + beta_1 x + varepsilon" />
+                  </p>
+                  `,           
                   howItWorks: 'Given $n$ observations $(x_i, y_i)$, the parameters $\\beta_0$ and $\\beta_1$ are estimated by minimizing the residual sum of squares (RSS): $$\\text{RSS}(\\beta_0, \\beta_1) = \\sum_{i=1}^n \\left(y_i - \\beta_0 - \\beta_1 x_i\\right)^2.$$ The closed-form Ordinary Least Squares (OLS) solutions are $$\\beta_1 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^n (x_i - \\bar{x})^2}, \\quad \\beta_0 = \\bar{y} - \\beta_1 \\bar{x}.$$ The fitted model is $\\hat{y} = \\beta_0 + \\beta_1 x$, which, under Gauss–Markov assumptions, is the Best Linear Unbiased Estimator (BLUE).',
                   applications: [
                     'Forecasting continuous outcomes from a single predictor',
@@ -564,3 +607,5 @@ export const aiConceptTree: ConceptNode = {
     }
   ]
 };
+
+export const parsedAiConceptTree = parseConceptTree(aiConceptTree);
