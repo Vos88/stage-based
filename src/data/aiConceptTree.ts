@@ -53,7 +53,11 @@ export const aiConceptTree: ConceptNode = {
                   title: 'Polynomial Regression', 
                   description: 'Fitting polynomial relationships between variables',
                   color: "bg-gradient-to-br from-teal-500 to-cyan-600",
-                  overview: 'Polynomial regression extends linear regression by modeling the relationship between variables using polynomial functions.',
+                  overview: `Polynomial regression extends linear regression by modeling the relationship between variables using polynomial functions. The model takes the form:
+
+                  $$y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\beta_3 x^3 + \\cdots + \\beta_d x^d + \\varepsilon$$
+
+                  where $d$ is the degree of the polynomial.`,
                   howItWorks: 'Fits curves by adding polynomial terms (x², x³, etc.) to capture non-linear relationships in data.',
                   applications: ['Curve fitting', 'Growth modeling', 'Price prediction with non-linear trends'],
                   advantages: ['Captures non-linear relationships', 'Flexible model complexity', 'Interpretable coefficients'],
@@ -67,9 +71,20 @@ export const aiConceptTree: ConceptNode = {
                 description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
                 overview:
                  `Simple linear regression models the dependent variable $y$ as a linear function of a single predictor $x$:
-                 $y = \beta_0 + \beta_1 x + \varepsilon$
-                  `, 
-                  howItWorks: 'Given $n$ observations $(x_i, y_i)$, the parameters $\beta_0$ and $\beta_1$ are estimated by minimizing the residual sum of squares (RSS): $$\text{RSS}(\beta_0, \beta_1) = \sum_{i=1}^n \left(y_i - \beta_0 - \beta_1 x_i\right)^2.$$ The closed-form Ordinary Least Squares (OLS) solutions are $$\beta_1 = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}, \quad \beta_0 = \bar{y} - \beta_1 \bar{x}.$$ The fitted model is $\hat{y} = \beta_0 + \beta_1 x$, which, under Gauss–Markov assumptions, is the Best Linear Unbiased Estimator (BLUE).',
+
+                  $$y = \\beta_0 + \\beta_1 x + \\varepsilon$$`, 
+                  
+                  howItWorks: `Given $n$ observations $(x_i, y_i)$, the parameters $\\beta_0$ and $\\beta_1$ are estimated by minimizing the residual sum of squares (RSS):
+
+                  $$\\text{RSS}(\\beta_0, \\beta_1) = \\sum_{i=1}^n \\left(y_i - \\beta_0 - \\beta_1 x_i\\right)^2$$
+
+                  The closed-form Ordinary Least Squares (OLS) solutions are:
+
+                  $$\\beta_1 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^n (x_i - \\bar{x})^2}$$
+
+                  $$\\beta_0 = \\bar{y} - \\beta_1 \\bar{x}$$
+
+                  The fitted model is $\\hat{y} = \\beta_0 + \\beta_1 x$, which, under Gauss–Markov assumptions, is the Best Linear Unbiased Estimator (BLUE).`,
                   applications: [
                     'Forecasting continuous outcomes from a single predictor',
                     'Calibrating measurement systems',
@@ -162,7 +177,11 @@ export const aiConceptTree: ConceptNode = {
                   title: 'Logistic Regression', 
                   description: 'Statistical method for binary and multiclass classification',
                   color: "bg-gradient-to-br from-indigo-500 to-blue-600",
-                  overview: 'Logistic regression uses the logistic function to model the probability of class membership.',
+                  overview: `Logistic regression uses the logistic function to model the probability of class membership. The model predicts the probability $P(y=1|x)$ using:
+
+$$P(y=1|x) = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1 x_1 + \\cdots + \\beta_p x_p)}}$$
+
+where the logistic function $\\sigma(z) = \\frac{1}{1 + e^{-z}}$ transforms the linear combination into a probability between 0 and 1.`,
                   howItWorks: 'Applies logistic function to linear combination of features to output probabilities between 0 and 1.',
                   applications: ['Medical diagnosis', 'Marketing response prediction', 'Quality control', 'Credit scoring'],
                   advantages: ['Probabilistic output', 'No tuning of hyperparameters', 'Less prone to overfitting', 'Fast and efficient'],
@@ -238,7 +257,11 @@ export const aiConceptTree: ConceptNode = {
                   title: 'K-Means', 
                   description: 'Partitioning data into k clusters',
                   color: "bg-gradient-to-br from-blue-500 to-indigo-600",
-                  overview: 'K-means clustering partitions data into k clusters by minimizing within-cluster sum of squares.',
+                  overview: `K-means clustering partitions data into k clusters by minimizing within-cluster sum of squares. The objective function is:
+
+$$\\min_{\\{S_1, S_2, \\ldots, S_k\\}} \\sum_{i=1}^{k} \\sum_{x \\in S_i} ||x - \\mu_i||^2$$
+
+where $S_i$ are the clusters, $\\mu_i$ is the centroid of cluster $i$, and $||x - \\mu_i||^2$ is the squared Euclidean distance.`,
                   howItWorks: 'Iteratively assigns points to nearest centroid and updates centroids until convergence.',
                   applications: ['Customer segmentation', 'Image segmentation', 'Market research', 'Data compression'],
                   advantages: ['Simple and fast', 'Works well with globular clusters', 'Guaranteed convergence'],
@@ -282,7 +305,13 @@ export const aiConceptTree: ConceptNode = {
                   title: 'Principal Component Analysis (PCA)', 
                   description: 'Linear dimensionality reduction technique',
                   color: "bg-gradient-to-br from-indigo-500 to-purple-600",
-                  overview: 'PCA reduces dimensionality by projecting data onto principal components that capture maximum variance.',
+                  overview: `PCA reduces dimensionality by projecting data onto principal components that capture maximum variance. For a data matrix $X$ with $n$ samples and $p$ features, PCA finds the eigenvectors of the covariance matrix $\\Sigma = \\frac{1}{n-1}X^TX$.
+
+The first principal component $w_1$ maximizes:
+
+$$w_1 = \\arg\\max_{||w||=1} w^T\\Sigma w$$
+
+Subsequent components are found by maximizing variance while being orthogonal to previous components.`,
                   howItWorks: 'Computes eigenvectors of covariance matrix and projects data onto top eigenvectors.',
                   applications: ['Data visualization', 'Feature reduction', 'Data compression', 'Noise reduction'],
                   advantages: ['Reduces overfitting', 'Removes correlation', 'Computational efficiency'],

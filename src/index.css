@@ -211,3 +211,32 @@
     }
   }
 }
+
+/* KaTeX Custom Styles */
+.katex {
+  font-size: 1.1em;
+}
+
+.katex-display {
+  margin: 1.5em 0;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Dark mode adjustments for KaTeX */
+.dark .katex {
+  color: hsl(var(--foreground));
+}
+
+.dark .katex .mord {
+  color: hsl(var(--foreground));
+}
+
+.dark .katex .mbin,
+.dark .katex .mrel {
+  color: hsl(var(--foreground));
+}

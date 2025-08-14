@@ -59,6 +59,25 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- KaTeX (for LaTeX math rendering)
+
+## LaTeX Math Rendering
+
+This project includes LaTeX math rendering capabilities using KaTeX. Mathematical expressions can be written in the content using:
+
+- **Inline math**: Use single dollar signs `$...$` for inline mathematical expressions
+- **Block math**: Use double dollar signs `$$...$$` for displayed mathematical equations
+
+### Examples:
+
+```latex
+Inline math: The slope is $\\beta_1 = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sum(x_i - \\bar{x})^2}$
+
+Block math: 
+$$y = \\beta_0 + \\beta_1 x + \\varepsilon$$
+```
+
+The LaTeX rendering is automatically applied to all content sections including overview, how it works, applications, advantages, and limitations.
 
 ## How can I deploy this project?
 

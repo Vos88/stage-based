@@ -1,6 +1,7 @@
 import { ConceptNode } from "@/data/aiConceptTree";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, AlertTriangle, ExternalLink } from "lucide-react";
+import { LatexRenderer } from "./LatexRenderer";
 
 interface ContentPanelProps {
   node: ConceptNode;
@@ -29,9 +30,9 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
         {node.overview && (
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">Overview</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {node.overview}
-            </p>
+            <div className="text-lg text-muted-foreground leading-relaxed">
+              <LatexRenderer content={node.overview} />
+            </div>
           </section>
         )}
 
@@ -39,9 +40,9 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
         {node.howItWorks && (
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">How It Works</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {node.howItWorks}
-            </p>
+            <div className="text-lg text-muted-foreground leading-relaxed">
+              <LatexRenderer content={node.howItWorks} />
+            </div>
           </section>
         )}
 
@@ -52,7 +53,9 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {node.applications.map((app, index) => (
                 <div key={index} className="p-4 rounded-lg bg-secondary/50 border border-border/50">
-                  <p className="text-muted-foreground">{app}</p>
+                  <div className="text-muted-foreground">
+                    <LatexRenderer content={app} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -67,7 +70,9 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
               {node.advantages.map((advantage, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
-                  <span className="text-muted-foreground">{advantage}</span>
+                  <span className="text-muted-foreground">
+                    <LatexRenderer content={advantage} />
+                  </span>
                 </li>
               ))}
             </ul>
@@ -82,7 +87,9 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
               {node.limitations.map((limitation, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <AlertTriangle className="text-orange-500 shrink-0 mt-0.5" size={20} />
-                  <span className="text-muted-foreground">{limitation}</span>
+                  <span className="text-muted-foreground">
+                    <LatexRenderer content={limitation} />
+                  </span>
                 </li>
               ))}
             </ul>
