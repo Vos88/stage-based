@@ -88,6 +88,16 @@ export function ContentPanel({ node, onBack }: ContentPanelProps) {
             </ul>
           </section>
         )}
+
+        {/* Code Example Section */}
+        {node.codeExample && (
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Code Example</h2>
+            <pre className="bg-slate-900 text-white p-4 rounded-md overflow-x-auto">
+              <code>{node.codeExample}</code>
+            </pre>
+          </section>
+        )}
       </div>
     </div>
   );
