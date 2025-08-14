@@ -9,6 +9,7 @@ export interface ConceptNode {
   applications?: string[];
   advantages?: string[];
   limitations?: string[];
+  codeExample?: string;
 }
 
 export const aiConceptTree: ConceptNode = {
@@ -61,11 +62,11 @@ export const aiConceptTree: ConceptNode = {
                 },
                 {
                   id: 'linear-regression', 
-                  title: 'Linear Regression', 
+                  title: 'Linear Regression',
                   color: "bg-gradient-to-br from-teal-500 to-cyan-600",
                   description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
-                  overview: 'Simple linear regression expresses the dependent variable y as a linear function of a single predictor x: y = β₀ + β₁x + ε, where β₀ is the intercept, β₁ is the slope, and ε is the error term. The model assumes a linear association and additive random noise.',
-                  howItWorks: 'Given n observations (xᵢ, yᵢ), the parameters β₀ and β₁ are estimated by minimizing the residual sum of squares (RSS) = Σᵢ (yᵢ − β₀ − β₁xᵢ)². The closed-form Ordinary Least Squares (OLS) solution is: β₁ = Σᵢ(xᵢ − x̄)(yᵢ − ȳ) / Σᵢ(xᵢ − x̄)², β₀ = ȳ − β₁x̄. The fitted model is ŷ = β₀ + β₁x, which under Gauss–Markov assumptions is the Best Linear Unbiased Estimator (BLUE).',
+                  overview: 'Simple linear regression models the dependent variable $y$ as a linear function of a single predictor $x$: $y = \\beta_0 + \\beta_1 x + \\varepsilon$, where $\\beta_0$ is the intercept, $\\beta_1$ is the slope, and $\\varepsilon$ is a random error term. The model assumes a linear association and additive noise.',
+                  howItWorks: 'Given $n$ observations $(x_i, y_i)$, the parameters $\\beta_0$ and $\\beta_1$ are estimated by minimizing the residual sum of squares (RSS): $$\\text{RSS}(\\beta_0, \\beta_1) = \\sum_{i=1}^n \\left(y_i - \\beta_0 - \\beta_1 x_i\\right)^2.$$ The closed-form Ordinary Least Squares (OLS) solutions are $$\\beta_1 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^n (x_i - \\bar{x})^2}, \\quad \\beta_0 = \\bar{y} - \\beta_1 \\bar{x}.$$ The fitted model is $\\hat{y} = \\beta_0 + \\beta_1 x$, which, under Gauss–Markov assumptions, is the Best Linear Unbiased Estimator (BLUE).',
                   applications: [
                     'Forecasting continuous outcomes from a single predictor',
                     'Calibrating measurement systems',
@@ -83,30 +84,30 @@ export const aiConceptTree: ConceptNode = {
                     'Assumes homoskedastic and uncorrelated residuals',
                     'Cannot capture nonlinear patterns without transformation'
                   ],
-                  codeExample:
-                    `python
-                    import numpy as np
+                  codeExample: 
+                `python
+                import numpy as np
 
-                    # Example data
-                    x = np.array([1, 2, 3, 4, 5], dtype=float)
-                    y = np.array([2, 3, 5, 7, 11], dtype=float)
+                # Example data
+                x = np.array([1, 2, 3, 4, 5], dtype=float)
+                y = np.array([2, 3, 5, 7, 11], dtype=float)
 
-                    # Means
-                    x_mean = np.mean(x)
-                    y_mean = np.mean(y)
+                # Means
+                x_mean = np.mean(x)
+                y_mean = np.mean(y)
 
-                    # OLS estimators
-                    beta1 = np.sum((x - x_mean) * (y - y_mean)) / np.sum((x - x_mean)**2)
-                    beta0 = y_mean - beta1 * x_mean
+                # OLS estimators
+                beta1 = np.sum((x - x_mean) * (y - y_mean)) / np.sum((x - x_mean)**2)
+                beta0 = y_mean - beta1 * x_mean
 
-                    print(f"β₀ (intercept): {beta0:.4f}")
-                    print(f"β₁ (slope): {beta1:.4f}")
+                print(f"β₀ (intercept): {beta0:.4f}")
+                print(f"β₁ (slope): {beta1:.4f}")
 
-                    # Prediction
-                    x_new = 6
-                    y_pred = beta0 + beta1 * x_new
-                    print(f"Predicted y for x={x_new}: {y_pred:.4f}")
-                    `,
+                # Prediction
+                x_new = 6
+                y_pred = beta0 + beta1 * x_new
+                print(f"Predicted y for x={x_new}: {y_pred:.4f}")
+                `,
                 children: []
                 },
                 { 
