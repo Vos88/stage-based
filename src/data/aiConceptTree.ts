@@ -12,9 +12,6 @@ export interface ConceptNode {
   codeExample?: string;
 }
 
-import 'katex/dist/katex.min.css';
-import { InlineMath, BlockMath } from 'react-katex';
-
 export const aiConceptTree: ConceptNode = {
   id: 'root',
   title: 'AI',
@@ -65,18 +62,10 @@ export const aiConceptTree: ConceptNode = {
                 },
                 {
                   id: 'linear-regression', 
-                  title: 'Linear Regression',
+                  title: 'Linear Regression', 
                   color: "bg-gradient-to-br from-teal-500 to-cyan-600",
                   description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
-                  overview: [
-                    <>
-                      Simple linear regression models the dependent variable{'y'}
-                      <InlineMath math="y" /> as a linear function of a single predictor{'x'}
-                      <InlineMath math="x" />:{' '}
-                      <InlineMath math="y = \beta_0 + \beta_1 x + \varepsilon" />. The model
-                      assumes a linear association and additive noise.
-                    </>
-                  ],
+                  overview: 'Simple linear regression models the dependent variable $y$ as a linear function of a single predictor $x$: $y = \\beta_0 + \\beta_1 x + \\varepsilon$, where $\\beta_0$ is the intercept, $\\beta_1$ is the slope, and $\\varepsilon$ is a random error term. The model assumes a linear association and additive noise.',
                   howItWorks: 'Given $n$ observations $(x_i, y_i)$, the parameters $\\beta_0$ and $\\beta_1$ are estimated by minimizing the residual sum of squares (RSS): $$\\text{RSS}(\\beta_0, \\beta_1) = \\sum_{i=1}^n \\left(y_i - \\beta_0 - \\beta_1 x_i\\right)^2.$$ The closed-form Ordinary Least Squares (OLS) solutions are $$\\beta_1 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^n (x_i - \\bar{x})^2}, \\quad \\beta_0 = \\bar{y} - \\beta_1 \\bar{x}.$$ The fitted model is $\\hat{y} = \\beta_0 + \\beta_1 x$, which, under Gauss–Markov assumptions, is the Best Linear Unbiased Estimator (BLUE).',
                   applications: [
                     'Forecasting continuous outcomes from a single predictor',
@@ -119,7 +108,7 @@ export const aiConceptTree: ConceptNode = {
                 y_pred = beta0 + beta1 * x_new
                 print(f"Predicted y for x={x_new}: {y_pred:.4f}")
                 `,
-                children: []
+                children: [],
                 },
                 { 
                   id: 'ridge-lasso', 
