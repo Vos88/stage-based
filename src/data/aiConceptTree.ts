@@ -62,14 +62,52 @@ export const aiConceptTree: ConceptNode = {
                 {
                   id: 'linear-regression', 
                   title: 'Linear Regression', 
-                  description: 'Fitting linear relationships between variables',
-                  color: "bg-gradient-to-br from-blue-500 to-indigo-600",
-                  overview: 'Linear regression models the relationship between a dependent variable and independent variables using a linear equation.',
-                  howItWorks: 'Finds the best-fitting line through data points using least squares optimization.',
-                  applications: ['Sales forecasting', 'Risk assessment', 'Economic modeling', 'Scientific research'],
-                  advantages: ['Simple and interpretable', 'Fast computation', 'Well-understood theory'],
-                  limitations: ['Assumes linear relationships', 'Sensitive to outliers', 'May underfit complex data'],
-                  children: []
+                  color: "bg-gradient-to-br from-teal-500 to-cyan-600",
+                  description: 'Modeling the relationship between one independent variable and one dependent variable by fitting a straight line to observed data.',
+                  overview: 'Simple linear regression expresses the dependent variable y as a linear function of a single predictor x: y = β₀ + β₁x + ε, where β₀ is the intercept, β₁ is the slope, and ε is the error term. The model assumes a linear association and additive random noise.',
+                  howItWorks: 'Given n observations (xᵢ, yᵢ), the parameters β₀ and β₁ are estimated by minimizing the residual sum of squares (RSS) = Σᵢ (yᵢ − β₀ − β₁xᵢ)². The closed-form Ordinary Least Squares (OLS) solution is: β₁ = Σᵢ(xᵢ − x̄)(yᵢ − ȳ) / Σᵢ(xᵢ − x̄)², β₀ = ȳ − β₁x̄. The fitted model is ŷ = β₀ + β₁x, which under Gauss–Markov assumptions is the Best Linear Unbiased Estimator (BLUE).',
+                  applications: [
+                    'Forecasting continuous outcomes from a single predictor',
+                    'Calibrating measurement systems',
+                    'Economic demand estimation with one explanatory variable',
+                    'Analyzing experimental dose-response relationships'
+                  ],
+                  advantages: [
+                    'Closed-form solution; computationally efficient',
+                    'Interpretable coefficients (slope and intercept)',
+                    'Well-established statistical properties under standard assumptions'
+                  ],
+                  limitations: [
+                    'Assumes linearity between predictor and response',
+                    'Sensitive to influential outliers',
+                    'Assumes homoskedastic and uncorrelated residuals',
+                    'Cannot capture nonlinear patterns without transformation'
+                  ],
+                  codeExample:
+                    `python
+                    import numpy as np
+
+                    # Example data
+                    x = np.array([1, 2, 3, 4, 5], dtype=float)
+                    y = np.array([2, 3, 5, 7, 11], dtype=float)
+
+                    # Means
+                    x_mean = np.mean(x)
+                    y_mean = np.mean(y)
+
+                    # OLS estimators
+                    beta1 = np.sum((x - x_mean) * (y - y_mean)) / np.sum((x - x_mean)**2)
+                    beta0 = y_mean - beta1 * x_mean
+
+                    print(f"β₀ (intercept): {beta0:.4f}")
+                    print(f"β₁ (slope): {beta1:.4f}")
+
+                    # Prediction
+                    x_new = 6
+                    y_pred = beta0 + beta1 * x_new
+                    print(f"Predicted y for x={x_new}: {y_pred:.4f}")
+                    `,
+                children: []
                 },
                 { 
                   id: 'ridge-lasso', 
