@@ -5,19 +5,19 @@ export const logisticRegression: ConceptNode = {
   title: 'Logistic Regression',
   description: 'Probabilistic linear classifier for binary and multiclass outcomes using the logistic/softmax link.',
   color: "bg-gradient-to-br from-indigo-500 to-blue-600",
-  overview: `Logistic regression models the conditional probability of categorical outcomes as a function of predictors via a logit (binary) or softmax (multiclass) link. For binary labels y ∈ {0,1} and feature vector x ∈ R^p the canonical form is:
+  overview: `Logistic regression models the conditional probability of categorical outcomes as a function of predictors via a logit (binary) or softmax (multiclass) link. For binary labels $y \\in \\{0,1\\}$ and feature vector $x \\in R^p$ the canonical form is:
 
-$$P(y=1\mid x) = \sigma(x^T\beta)\quad\text{where }\sigma(z)=\frac{1}{1+e^{-z}}.$$ 
+$$P(y=1\\mid x) = \\sigma(x^T\\beta)\\quad\\text{where }\\sigma(z)=\\frac{1}{1+e^{-z}}.$$ 
 
 Equivalently, the log-odds (logit) is linear in x:
 
-$$\operatorname{logit}\,P(y=1\mid x)=\log\frac{P(y=1\mid x)}{1-P(y=1\mid x)}=x^T\beta.$$ 
+$$\operatorname{logit}\\,P(y=1\\mid x)=\\log\\frac{P(y=1\\mid x)}{1-P(y=1\\mid x)}=x^T\\beta.$$ 
 
 For K>2 classes the model generalises via the softmax mapping:
 
-$$P(y=k\mid x)=\frac{e^{x^T\beta^{(k)}}}{\sum_{l=1}^K e^{x^T\beta^{(l)}}},\qquad k=1,\dots,K,$$
+$$P(y=k\\mid x)=\\frac{e^{x^T\\beta^{(k)}}}{\\sum_{l=1}^K e^{x^T\\beta^{(l)}}},\\qquad k=1,\\dots,K,$$
 
-with an identifiability constraint (for example, \(\beta^{(K)}=0\)).`,
+with an identifiability constraint (for example, $(\\beta^{(K)}=0))$.`,
   
   howItWorks: `Logistic regression models class probabilities through a probabilistic framework that combines a linear predictor with a sigmoid link function. This ensures predictions remain valid probabilities bounded in $[0, 1]$.
 
