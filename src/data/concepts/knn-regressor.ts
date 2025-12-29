@@ -5,55 +5,47 @@ export const knnRegressor: ConceptNode = {
   title: 'K-Nearest Neighbors Regressor',
   description: 'Instance-based non-parametric regression using local averaging',
   color: "bg-gradient-to-br from-amber-500 to-orange-600",
-  overview: `K-Nearest Neighbors (KNN) regression is a non-parametric, instance-based learning method that makes predictions by averaging the target values of the k most similar training examples. Unlike parametric methods that learn a fixed model, KNN is a "lazy learner" that stores all training data and computes predictions on-the-fly.
+  overview: `K-Nearest Neighbors (KNN) regression represents a fundamentally different paradigm from parametric regression methods. Rather than learning a fixed functional relationship through parameter estimation, KNN is an instance-based learning algorithm that retains the entire training dataset and makes predictions by exploiting local patterns in the data. This approach is sometimes called a "lazy learner" because it defers computation until prediction time: no fitting or parameter estimation occurs during training, only during inference.
 
-The fundamental assumption is that similar inputs should have similar outputs. KNN finds the k training examples closest to a query point in feature space and predicts their average target value. The method is highly flexible and can adapt to complex, non-linear relationships without making strong assumptions about the underlying function.`,
+The core principle underlying KNN is elegantly simple: observations that are similar in feature space should have similar target values. Formally, similarity is quantified through a distance metric in the feature space. When presented with a new, unobserved data point, KNN identifies the $k$ training examples that lie closest to this point and generates a prediction by averaging their target values. The choice of $k$ determines the locality of the prediction: small values of $k$ yield predictions based on very nearby neighbors (high variability, low bias), while large values smooth predictions over broader neighborhoods (low variability, high bias). This locality-based approach enables KNN to capture complex, non-linear relationships and adaptive local structure without imposing any parametric assumptions on the underlying functional form.`,
   
-  howItWorks: `The Goal
+  howItWorks: `The prediction mechanism in KNN operates through two conceptually distinct phases. First, the algorithm identifies the neighborhood: given a query point $\\mathbf{x}_0$, it computes distances to all training examples and selects the $k$ points with smallest distances. Second, it generates a prediction by aggregating the target values of these neighbors. This locality principle is the method's defining characteristic: predictions depend only on nearby observations, allowing the model to adapt flexibly to local data structure.
 
-The primary goal of KNN regression is to make predictions based on local patterns in the training data. For each new observation, we find its k nearest neighbors in feature space and use their target values to make a prediction. This creates a locally adaptive, non-parametric regression surface that can capture complex relationships.
-
-Distance Metrics
-
-KNN requires a distance metric to measure similarity between observations. Common choices:
-
-- Euclidean Distance (most common):
+Central to the KNN framework is the concept of distance in the feature space. Formally, a distance metric quantifies dissimilarity between pairs of observations. The Euclidean distance is the most widely used choice, computing the straight-line distance in the $p$-dimensional feature space:
 
 $$d(\\mathbf{x}_i, \\mathbf{x}_j) = \\sqrt{\\sum_{m=1}^p (x_{im} - x_{jm})^2} = ||\\mathbf{x}_i - \\mathbf{x}_j||_2$$
 
-- Manhattan Distance (L1 norm):
+This metric is intuitive and computationally efficient, but it treats all features symmetrically and is sensitive to feature scaling: a feature with large variance naturally dominates distance calculations. Alternative distance metrics accommodate different assumptions about feature relationships. The Manhattan distance (also called city-block or L1 distance) sums absolute differences:
 
 $$d(\\mathbf{x}_i, \\mathbf{x}_j) = \\sum_{m=1}^p |x_{im} - x_{jm}| = ||\\mathbf{x}_i - \\mathbf{x}_j||_1$$
 
-- Minkowski Distance (generalization):
+Manhattan distance is more robust to outliers than Euclidean distance and may be preferable for data with categorical or ordinal features. The Minkowski distance generalizes both as a family:
 
 $$d(\\mathbf{x}_i, \\mathbf{x}_j) = \\left(\\sum_{m=1}^p |x_{im} - x_{jm}|^q\\right)^{1/q}$$
 
-where $q=2$ gives Euclidean and $q=1$ gives Manhattan.
+where $q=2$ recovers Euclidean distance and $q=1$ recovers Manhattan distance. By varying $q$, practitioners can tune the metric's behavior. Other specialized metrics—cosine similarity for text data, Hamming distance for categorical data—exist for specific problem domains, but Euclidean and Manhattan distances remain standard choices.
 
-- Weighted Distances: Some implementations use inverse distance weighting, giving more influence to closer neighbors.
-
-Prediction
-
-For a query point $\\mathbf{x}_0$, KNN regression:
-
-1. Find k nearest neighbors: $\\mathcal{N}_k(\\mathbf{x}_0) = \\{\\mathbf{x}_{(1)}, \\mathbf{x}_{(2)}, \\ldots, \\mathbf{x}_{(k)}\\}$
-
-2. Predict using uniform averaging:
+Given a query point $\\mathbf{x}_0$, the prediction phase proceeds as follows. The algorithm first identifies the set of $k$ nearest neighbors $\\mathcal{N}_k(\\mathbf{x}_0) = \\{\\mathbf{x}_{(1)}, \\mathbf{x}_{(2)}, \\ldots, \\mathbf{x}_{(k)}\\}$, where indices denote ordering by distance (closest first). The simplest prediction rule uses uniform averaging:
 
 $$\\hat{y}_0 = \\frac{1}{k} \\sum_{i=1}^k y_{(i)}$$
 
-where $y_{(i)}$ is the target value of the $i$-th nearest neighbor.
+where $y_{(i)}$ is the target value of the $i$-th nearest neighbor. This approach treats all selected neighbors equally regardless of their distance to the query point. In practice, this assumption is often suboptimal: intuitively, closer neighbors should exert greater influence on the prediction than distant neighbors.
 
-Weighted KNN (distance-weighted):
+Distance-weighted KNN addresses this limitation by assigning weights inversely proportional to distance:
 
 $$\\hat{y}_0 = \\frac{\\sum_{i=1}^k w_i y_{(i)}}{\\sum_{i=1}^k w_i}$$
 
-where weights are typically:
+where typical weight functions include:
 
 $$w_i = \\frac{1}{d(\\mathbf{x}_0, \\mathbf{x}_{(i)})^p}$$
 
-with $p$ controlling the influence of distance (common values: 1 or 2).`,
+The exponent $p$ controls distance sensitivity: larger $p$ values give much more influence to the closest neighbors, while $p=1$ provides a moderate weighting scheme. Distance-weighted KNN often outperforms uniform averaging because it appropriately captures the intuition that very close neighbors are more informative than merely nearby neighbors.
+
+The choice of $k$ is critical and directly governs the bias-variance tradeoff. When $k=1$, predictions are determined by the single nearest neighbor, yielding a model with zero training error but extreme variance—small perturbations in training data or test query locations cause predictions to change discontinuously. Conversely, as $k$ increases toward $n$ (the training set size), predictions increasingly reflect global data structure and become smoother but potentially more biased. Optimal $k$ selection typically requires cross-validation: partition training data into folds, fit KNN models with different $k$ values on $k-1$ folds, evaluate on the held-out fold, and select the $k$ maximizing generalization performance.
+
+A critical practical consideration is feature scaling. Since distance metrics treat all features equally, features with larger natural magnitudes dominate distance calculations. Standardizing features—subtracting the mean and dividing by standard deviation—ensures each feature contributes proportionally to distance. Without standardization, a feature measured in thousands can obscure subtle patterns in features measured in single digits, leading to severely degraded performance.
+
+The KNN framework also highlights a subtle but important assumption: that high-dimensional Euclidean distance meaningfully quantifies similarity. However, in very high-dimensional spaces, distances between points become increasingly uniform, a phenomenon known as the curse of dimensionality. Most points in high dimensions are approximately equidistant from any given query point, making the nearest neighbor distinction less informative. This suggests KNN performs best in moderate-dimensional settings and may require feature selection or dimensionality reduction techniques in high-dimensional problems.`,
   
   applications: [
     'Recommendation systems based on user/item similarity',

@@ -5,135 +5,55 @@ export const decisionTreeRegressor: ConceptNode = {
   title: 'Decision Tree Regressor',
   description: 'Non-parametric tree-based model that partitions feature space into regions',
   color: "bg-gradient-to-br from-orange-500 to-red-600",
-  overview: `Decision tree regression is a non-parametric method that recursively partitions the feature space into rectangular regions and predicts a constant value (typically the mean) within each region. Unlike linear models that assume a global linear relationship, decision trees can capture complex, non-linear, and interaction effects without requiring feature transformations.
+  overview: `Decision tree regression represents a fundamentally different approach to predictive modeling compared to the parametric methods of linear and polynomial regression. Rather than assuming a global functional form relating predictors to the response, decision trees recursively partition the feature space into rectangular regions and predict a constant value within each region. This non-parametric methodology enables the model to capture complex non-linear relationships, high-order interactions, and threshold effects without requiring explicit feature transformations or knowledge of the underlying relationship structure.
 
-The model builds a tree structure where:
-
-- Internal nodes represent decision rules based on feature values (e.g., "temperature < 20°C")
-
-- Branches represent outcomes of decisions (e.g., "yes" or "no")
-
-- Leaf nodes contain the predicted value (mean of target values in that region)
-
-Each path from root to leaf represents a series of conditions that define a region in feature space. The prediction for a new observation is the average target value of training samples in the corresponding leaf node.`,
+The tree structure consists of three types of nodes: internal nodes, which contain decision rules (e.g., "feature $x_1 < 25$?"), branches, which represent the outcomes of these decisions, and leaf nodes, which contain the predicted values (typically the mean of target values for all training samples that reached that leaf). Each path from the root node to a leaf represents a series of conditions that partitions a region of the feature space. When predicting for a new observation, the model traverses the tree from root to leaf by evaluating the feature conditions at each internal node, ultimately arriving at a leaf node whose associated constant serves as the prediction. This transparent decision pathway is a key strength of tree-based models: practitioners can understand precisely how the model arrived at a particular prediction, making trees ideal for applications where interpretability is paramount.`,
   
-  howItWorks: `The Goal
+  howItWorks: `The fundamental principle underlying decision tree construction is recursive partitioning: we successively divide the feature space into smaller and smaller regions with the goal of creating regions where the target variable exhibits low variance. Within each region, we predict the mean of observed target values, creating a piecewise constant function that approximates the underlying relationship.
 
-The primary goal of decision tree regression is to partition the feature space into regions where the target variable is relatively homogeneous, then predict the average value within each region. This creates a piecewise constant function that can approximate complex non-linear relationships.
+The core algorithmic question at each node is: which feature and threshold should we use to split the data? To answer this, decision trees employ a splitting criterion that quantifies the homogeneity of the target variable in the resulting regions. For regression tasks, Mean Squared Error (MSE) reduction serves as the standard criterion. At each node, we evaluate all possible splits (all features paired with all unique thresholds) and select the split that minimizes the weighted average MSE of the resulting child nodes.
 
-Splitting Criterion
-
-Decision trees use a splitting criterion to determine the best feature and threshold at each node. For regression, the most common criterion is Mean Squared Error (MSE) reduction:
-
-At each node, we find the split that minimizes:
+Specifically, if a split divides the data into left and right subsets, the MSE after the split is:
 
 $$\\text{MSE}_{\\text{split}} = \\frac{n_{\\text{left}}}{n} \\text{MSE}_{\\text{left}} + \\frac{n_{\\text{right}}}{n} \\text{MSE}_{\\text{right}}$$
 
-where:
+where the MSE within each child is computed as:
 
 $$\\text{MSE}_{\\text{left}} = \\frac{1}{n_{\\text{left}}} \\sum_{i \\in \\text{left}} (y_i - \\bar{y}_{\\text{left}})^2$$
 
 $$\\text{MSE}_{\\text{right}} = \\frac{1}{n_{\\text{right}}} \\sum_{i \\in \\text{right}} (y_i - \\bar{y}_{\\text{right}})^2$$
 
-The split that maximizes the reduction in MSE is chosen:
+The quality of a split is measured by the reduction in MSE compared to the parent node:
 
 $$\\Delta \\text{MSE} = \\text{MSE}_{\\text{parent}} - \\text{MSE}_{\\text{split}}$$
 
-Alternative criteria include:
+The split that maximizes this reduction is selected because it produces the greatest decrease in overall prediction error. Alternative splitting criteria exist for specialized purposes: Mean Absolute Error (MAE) is more robust to outliers than MSE, and Friedman's MSE variant adjusts the criterion to account for imbalances in the sizes of child nodes, reducing bias toward features that naturally produce unbalanced splits.
 
-- Mean Absolute Error (MAE): More robust to outliers
+The tree is constructed recursively using a greedy algorithm. We begin with all training data at the root node. At each node, we evaluate whether to split further or create a leaf node (stopping criterion). If stopping criteria are not met, the algorithm searches through all possible splits, selects the one with maximum MSE reduction, partitions the data accordingly, and recursively applies the same process to the left and right child nodes. This greedy approach is computationally efficient, though it does not guarantee a globally optimal tree.
 
-- Friedman's MSE: Adjusts for the number of samples in each child
+Stopping criteria prevent the tree from growing indefinitely and overfitting the training data. Common stopping rules include maximum tree depth (limiting the number of levels), minimum samples per leaf (ensuring each leaf contains a minimum number of observations), minimum samples to split (avoiding splits on tiny subsets), and minimum MSE reduction threshold (avoiding splits that yield negligible improvements). These hyperparameters control the complexity of the resulting model and directly influence the bias-variance tradeoff: shallow trees introduce bias but exhibit low variance and generalize well, while deep trees minimize training error but often overfit and perform poorly on new data.
 
-Tree Construction Algorithm
+For prediction, when a new observation $\\mathbf{x}$ arrives, we traverse the tree from the root by evaluating the feature conditions at each internal node, following the appropriate branch at each step until reaching a leaf node. The prediction is then the mean of all training target values in that leaf:
 
-The tree is built recursively using a greedy algorithm:
+$$\\hat{y} = \\bar{y}_{\\text{leaf}} = \\frac{1}{n_{\\text{leaf}}} \\sum_{i \\in \\text{leaf}} y_i$$
 
-1. Start with all training data at the root node
-
-2. For each node:
-
-   - If stopping criterion met → create leaf node with mean of target values
-
-   - Otherwise:
-
-     - Try all possible splits (feature + threshold combinations)
-
-     - Select split with maximum MSE reduction
-
-     - Create left and right child nodes
-
-     - Recursively apply to child nodes
-
-3. Stopping criteria (prevent overfitting):
-
-   - Maximum tree depth
-
-   - Minimum samples per leaf
-
-   - Minimum samples to split
-
-   - Minimum MSE reduction threshold
-
-Prediction
-
-For a new observation $\\mathbf{x}$:
-
-1. Start at root node
-
-2. Follow path based on feature conditions
-
-3. Reach leaf node
-
-4. Predict: $\\hat{y} = \\bar{y}_{\\text{leaf}} = \\frac{1}{n_{\\text{leaf}}} \\sum_{i \\in \\text{leaf}} y_i$
-
-Cost Functions
-
-The training process minimizes the total MSE across all leaf nodes:
+The training objective, viewed globally, is to minimize the total squared error across all leaf nodes:
 
 $$L = \\sum_{m=1}^{M} \\sum_{i \\in R_m} (y_i - \\bar{y}_m)^2$$
 
-where $M$ is the number of leaf nodes and $R_m$ is the $m$-th region (leaf).
+where $M$ is the number of leaf nodes and $R_m$ represents the $m$-th region. However, the actual optimization process is greedy: we optimize each split locally without considering global optimality.
 
-However, the actual optimization is done greedily at each split, not globally.
+Decision trees are notorious for overfitting, particularly when grown to full depth. Two complementary approaches address this problem. Pre-pruning (or early stopping) prevents overfitting during tree construction by enforcing hyperparameters such as maximum depth, minimum samples to split, and minimum samples in each leaf. Alternatively, post-pruning grows a full tree on training data, then removes branches that fail to improve performance on a separate validation set. Cost-complexity pruning, a systematic post-pruning approach, introduces a complexity penalty:
 
-Regularization and Pruning
+$$\\text{Cost}(T) = \\text{MSE}(T) + \\alpha |T|$$
 
-Decision trees are prone to overfitting. Common regularization techniques:
+where $|T|$ is the number of leaf nodes and $\\alpha$ controls the trade-off between training fit and tree complexity. By varying $\\alpha$, we obtain a sequence of candidate trees, and we select the tree that optimizes validation performance.
 
-Pre-pruning (Early Stopping):
-
-- max_depth: Maximum depth of tree
-
-- min_samples_split: Minimum samples required to split
-
-- min_samples_leaf: Minimum samples in leaf nodes
-
-- min_impurity_decrease: Minimum decrease in impurity to split
-
-Post-pruning:
-
-- Build full tree, then prune branches that don't improve validation performance
-
-- Uses cost-complexity pruning: $\\text{Cost} = \\text{MSE} + \\alpha |T|$ where $|T|$ is number of leaves
-
-Model Evaluation
-
-Decision trees use standard regression metrics (see Linear Regression for R², RMSE, MAE). Additional considerations:
-
-Bias-Variance Trade-off:
-
-- Deep trees: Low bias, high variance (overfitting)
-
-- Shallow trees: High bias, low variance (underfitting)
-
-Feature Importance: Decision trees provide feature importance scores based on how much each feature reduces MSE across all splits:
+Decision trees provide an interpretable ranking of feature importance based on their collective contribution to reducing MSE across all splits in the tree:
 
 $$\\text{Importance}_j = \\frac{1}{N} \\sum_{t} p(t) \\Delta_j(t)$$
 
-where $p(t)$ is the proportion of samples reaching node $t$ and $\\Delta_j(t)$ is the MSE reduction from feature $j$ at node $t$.
-
-  Interpretability: Decision trees are highly interpretable - you can visualize the entire decision process as a flowchart.`,
+where $p(t)$ is the proportion of samples reaching node $t$ (the relative frequency of that node in predictions), and $\\Delta_j(t)$ is the MSE reduction from splitting on feature $j$ at node $t$. Features that consistently appear in splits and produce substantial MSE reductions receive high importance scores. This ranking guides feature selection and identifies the most influential predictors in the model.`,
   
   applications: [
     'Real estate valuation with categorical and numerical features',

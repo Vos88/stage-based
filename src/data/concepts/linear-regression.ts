@@ -6,85 +6,79 @@ export const linearRegression: ConceptNode = {
   color: "bg-gradient-to-br from-teal-500 to-cyan-600",
   description: 'A fundamental machine learning method for modeling relationships between variables by fitting a linear equation to observed data.',
   overview:
-   `Linear regression is one of the most fundamental and widely-used machine learning algorithms. It models the relationship between a dependent variable (what we want to predict) and one or more independent variables (features) by fitting a linear equation to the observed data.
+   `Linear regression stands as one of the most fundamental and widely-used machine learning algorithms, serving as the foundation for much of statistical learning theory and practice. The core objective is elegantly simple: to model the relationship between a dependent variable (the target we wish to predict) and one or more independent variables (the features we observe) by fitting a linear equation to empirical data.
 
-Simple Linear Regression models the relationship between a single predictor $x$ and a response variable $y$:
+In the simplest setting, we begin with a single predictor variable. The relationship between a predictor $x$ and a response variable $y$ is modeled as:
 
 $$y = \\beta_0 + \\beta_1 x + \\varepsilon$$
 
-where $\\beta_0$ is the intercept, $\\beta_1$ is the slope, and $\\varepsilon$ represents the error term.
+Here, $\\beta_0$ represents the intercept (the predicted value when $x = 0$), $\\beta_1$ represents the slope (the expected change in $y$ for each unit increase in $x$), and $\\varepsilon$ denotes the error term, capturing all the variability in $y$ that cannot be explained by $x$ alone. This simple linear model provides immediate interpretability: the slope coefficient directly quantifies the strength and direction of the relationship between predictor and response.
 
-Multiple Linear Regression extends this to multiple predictors:
+In practice, real-world problems rarely involve a single predictor. Multiple linear regression extends the framework to accommodate $p$ distinct features, modeling the conditional expectation of $y$ as a linear combination of all predictors:
 
 $$y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\cdots + \\beta_p x_p + \\varepsilon$$
 
-In matrix notation, with $n$ observations and $p$ features:
+To facilitate computational and theoretical analysis, we adopt matrix notation. With $n$ observations and $p$ features, we express the model compactly as:
 
 $$\\mathbf{y} = \\mathbf{X}\\boldsymbol{\\beta} + \\boldsymbol{\\varepsilon}$$
 
-where $\\mathbf{y}$ is an $n \\times 1$ vector of responses, $\\mathbf{X}$ is an $n \\times (p+1)$ design matrix (with a column of ones for the intercept), $\\boldsymbol{\\beta}$ is a $(p+1) \\times 1$ vector of coefficients, and $\\boldsymbol{\\varepsilon}$ is the error vector.`,
+where $\\mathbf{y}$ is an $n \\times 1$ vector of response values, $\\mathbf{X}$ is an $n \\times (p+1)$ design matrix whose first column contains ones (representing the intercept) and whose remaining columns contain the observed feature values, $\\boldsymbol{\\beta}$ is a $(p+1) \\times 1$ vector of coefficients to be estimated, and $\\boldsymbol{\\varepsilon}$ is an $n \\times 1$ vector of errors. This formulation unifies simple and multiple regression under a single mathematical framework and enables efficient computation of parameter estimates.`,
   
-  howItWorks: `The Goal
+  howItWorks: `The fundamental challenge in linear regression is to determine the coefficient vector $\\boldsymbol{\\beta}$ that yields predictions closest to the observed data. We seek the best-fitting line (or hyperplane in higher dimensions) in a precise mathematical sense: the line that minimizes a measure of the overall prediction error.
 
-The primary goal of linear regression is to find the best-fitting line (or hyperplane in multiple dimensions) that minimizes the difference between predicted and actual values. We want to estimate the coefficients $\\boldsymbol{\\beta}$ that make our predictions as accurate as possible.
-
-Cost Functions
-
-The most common cost function is the Mean Squared Error (MSE), which measures the average squared difference between predicted and actual values:
+The most widely adopted measure of prediction error is the Mean Squared Error (MSE), which quantifies the average squared deviation between predicted and observed values:
 
 $$\\text{MSE} = \\frac{1}{n}\\sum_{i=1}^n (y_i - \\hat{y}_i)^2$$
 
-where $\\hat{y}_i = \\beta_0 + \\beta_1 x_{i1} + \\cdots + \\beta_p x_{ip}$ is the predicted value.
+where $\\hat{y}_i = \\beta_0 + \\beta_1 x_{i1} + \\cdots + \\beta_p x_{ip}$ denotes the predicted value for the $i$-th observation. The squaring of errors serves two purposes: it penalizes large deviations more heavily than small ones, and it makes the function smooth and differentiable, enabling calculus-based optimization.
 
-Equivalently, we minimize the Residual Sum of Squares (RSS) or Sum of Squared Errors (SSE):
+We can equivalently minimize the Residual Sum of Squares (RSS), which omits the $1/n$ scaling:
 
 $$\\text{RSS} = \\sum_{i=1}^n (y_i - \\hat{y}_i)^2 = \\sum_{i=1}^n \\left(y_i - (\\beta_0 + \\beta_1 x_{i1} + \\cdots + \\beta_p x_{ip})\\right)^2$$
 
-In matrix form:
+In compact matrix form, RSS becomes:
 
 $$\\text{RSS} = (\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta})^T(\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta})$$
 
-Minimization of Error
-
-To find the optimal coefficients, we take the derivative of the cost function with respect to $\\boldsymbol{\\beta}$ and set it to zero. This gives us the Normal Equations:
+To find the coefficient vector that minimizes RSS, we employ the calculus technique of setting the gradient equal to zero. Taking the partial derivative with respect to $\\boldsymbol{\\beta}$ and equating it to zero yields the Normal Equations:
 
 $$\\frac{\\partial \\text{RSS}}{\\partial \\boldsymbol{\\beta}} = -2\\mathbf{X}^T(\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}) = 0$$
 
-Solving for $\\boldsymbol{\\beta}$, we get the Ordinary Least Squares (OLS) solution:
+Rearranging and solving for $\\boldsymbol{\\beta}$ produces the Ordinary Least Squares (OLS) estimator, a closed-form solution that can be computed directly:
 
 $$\\hat{\\boldsymbol{\\beta}} = (\\mathbf{X}^T\\mathbf{X})^{-1}\\mathbf{X}^T\\mathbf{y}$$
 
-For simple linear regression, the closed-form solutions are:
+This remarkable result—that we can solve for the optimal coefficients analytically rather than through iterative optimization—is one of the key advantages of linear regression. For simple linear regression with a single feature, the closed-form formulas become more explicit. The slope coefficient is given by the ratio of the covariance between $x$ and $y$ to the variance of $x$:
 
 $$\\beta_1 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^n (x_i - \\bar{x})^2} = \\frac{\\text{Cov}(x, y)}{\\text{Var}(x)}$$
 
+And the intercept is determined by the requirement that the fitted line passes through the point $(\\bar{x}, \\bar{y})$:
+
 $$\\beta_0 = \\bar{y} - \\beta_1 \\bar{x}$$
 
-where $\\bar{x}$ and $\\bar{y}$ are the sample means.
+where $\\bar{x}$ and $\\bar{y}$ denote the sample means. These formulas reveal an important principle: the estimated slope depends on the strength of the linear association between variables, while the intercept is determined by the marginal mean of the response.
 
-Model Evaluation
-
-After fitting the model, we evaluate its performance using several metrics:
-
-- R-squared ($R^2$) measures the proportion of variance explained by the model:
+Once we have fitted the model to training data, we must evaluate its predictive performance. Several complementary metrics serve this purpose, each offering different insights. The coefficient of determination, commonly denoted $R^2$, measures the proportion of variance in the response that is explained by the linear model:
 
 $$R^2 = 1 - \\frac{\\text{RSS}}{\\text{TSS}} = 1 - \\frac{\\sum_{i=1}^n (y_i - \\hat{y}_i)^2}{\\sum_{i=1}^n (y_i - \\bar{y})^2}$$
 
-where TSS is the Total Sum of Squares. $R^2$ ranges from 0 to 1, with 1 indicating a perfect fit.
+where TSS denotes the Total Sum of Squares, a measure of the total variance in the response variable. The $R^2$ statistic ranges from 0 to 1: a value of 0 indicates that the model explains none of the variance (predictions equal the mean), while 1 indicates perfect prediction. In practice, $R^2$ values between 0.5 and 0.9 are typical for real-world problems.
 
-- Adjusted R-squared accounts for the number of predictors:
+A subtle weakness of $R^2$ is that it increases monotonically as we add more predictors to the model, even if those predictors are irrelevant. Adjusted $R^2$ addresses this by penalizing model complexity:
 
 $$R^2_{\\text{adj}} = 1 - \\frac{(1-R^2)(n-1)}{n-p-1}$$
 
-- Root Mean Squared Error (RMSE):
+This adjustment favors more parsimonious models and provides a fairer basis for comparing models with different numbers of features.
+
+Beyond $R^2$, we often report the Root Mean Squared Error (RMSE), which measures the typical magnitude of prediction errors in the original units of the target variable:
 
 $$\\text{RMSE} = \\sqrt{\\frac{1}{n}\\sum_{i=1}^n (y_i - \\hat{y}_i)^2} = \\sqrt{\\text{MSE}}$$
 
-- Mean Absolute Error (MAE):
+RMSE is particularly useful for practitioners because it is interpretable in the same units as the response variable. A related metric is the Mean Absolute Error (MAE), which computes the average absolute deviation:
 
 $$\\text{MAE} = \\frac{1}{n}\\sum_{i=1}^n |y_i - \\hat{y}_i|$$
 
-These metrics help us understand how well our model fits the data and how accurate our predictions are.`,
+Unlike RMSE, MAE is less sensitive to outliers, making it valuable when extreme errors occur in the data. Together, these metrics provide a comprehensive picture of model performance: $R^2$ and adjusted $R^2$ capture overall explanatory power, while RMSE and MAE quantify the magnitude of typical errors.`,
   applications: [
     'Predicting house prices based on size, location, and features',
     'Forecasting sales based on advertising spend and other factors',
