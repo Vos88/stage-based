@@ -5,7 +5,7 @@ export const neuralNetworks: ConceptNode = {
   id: 'neural-networks',
   title: 'Neural Networks',
   description: 'Computing systems inspired by biological neural networks',
-  color: "bg-gradient-to-br from-violet-500 to-indigo-600",
+  color: "bg-gradient-to-br from-indigo-500 to-blue-600",
   children: [
     mlp,
     cnn,

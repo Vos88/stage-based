@@ -46,7 +46,7 @@ export const supervisedLearning: ConceptNode = {
   id: 'supervised-learning',
   title: 'Supervised Learning',
   description: 'Learning with labeled training data',
-  color: "bg-gradient-to-br from-green-500 to-blue-600",
+  color: "bg-gradient-to-br from-green-500 to-emerald-600",
   children: [
     regression,
     classification

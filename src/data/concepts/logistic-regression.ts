@@ -4,7 +4,7 @@ export const logisticRegression: ConceptNode = {
   id: 'logistic-regression',
   title: 'Logistic Regression',
   description: 'Probabilistic linear classifier for binary and multiclass outcomes using the logistic/softmax link.',
-  color: "bg-gradient-to-br from-indigo-500 to-blue-600",
+  color: "bg-gradient-to-br from-purple-400 to-violet-500",
   overview: `Logistic regression models the conditional probability of categorical outcomes as a function of predictors via a logit (binary) or softmax (multiclass) link. For binary labels $y \\in \\{0,1\\}$ and feature vector $x \\in R^p$ the canonical form is:
 
 $$P(y=1\\mid x) = \\sigma(x^T\\beta)\\quad\\text{where }\\sigma(z)=\\frac{1}{1+e^{-z}}.$$ 

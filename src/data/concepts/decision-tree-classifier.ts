@@ -4,7 +4,7 @@ export const decisionTreeClassifier: ConceptNode = {
   id: 'decision-tree-classifier',
   title: 'Decision Tree Classifier',
   description: 'Tree-based classification model that partitions feature space using decision rules',
-  color: "bg-gradient-to-br from-orange-500 to-amber-600",
+  color: "bg-gradient-to-br from-fuchsia-400 to-purple-500",
   overview: `Decision tree classification represents a non-parametric approach to learning discrete decision boundaries through recursive partitioning of the feature space. Unlike linear classifiers that assume a fixed functional form, decision trees adaptively construct a series of hierarchical decision rules by examining feature values. The resulting model is a tree structure where each internal node represents a decision rule (e.g., "feature $x_1 < 25$?"), branches represent outcomes of these decisions, and leaf nodes contain class label predictions. 
 
 The intuition is appealingly straightforward: we recursively partition the feature space into increasingly homogeneous regions until each region is dominated by a single class. When presented with a new observation, we traverse the tree from root to leaf by answering the feature conditions at each internal node, ultimately arriving at a leaf whose associated class label serves as the prediction. This transparent, interpretable decision pathway makes decision trees particularly valuable in applications where stakeholders must understand the reasoning behind predictions.`,

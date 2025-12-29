@@ -4,7 +4,7 @@ export const svm: ConceptNode = {
   id: 'svm',
   title: 'Support Vector Machine (SVM)',
   description: 'Maximum margin classifier that finds optimal separating hyperplane',
-  color: "bg-gradient-to-br from-red-500 to-pink-600",
+  color: "bg-gradient-to-br from-violet-400 to-purple-600",
   overview: `Support Vector Machines find the optimal hyperplane that maximally separates different classes in feature space. The key insight is to maximize the margin (distance) between the decision boundary and the nearest training examples (support vectors).
 
 For linearly separable data, the optimal hyperplane is:

@@ -128,18 +128,23 @@
 @layer components {
   .concept-node {
     @apply relative flex items-center justify-center p-6 rounded-2xl;
-    @apply border border-border/50 cursor-pointer;
+    @apply cursor-pointer;
     @apply transition-all duration-300 ease-in-out;
     @apply hover:scale-105 hover:shadow-lg;
-    background: hsl(var(--node-color) / 0.1);
-    border-color: hsl(var(--node-color) / 0.3);
-    box-shadow: var(--shadow-node);
+    @apply bg-opacity-20;
+    background-color: inherit;
+    border: 1px solid;
+    border-color: inherit;
+    border-opacity: 0.2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .concept-node:hover {
-    background: hsl(var(--node-color) / 0.15);
-    border-color: hsl(var(--node-color) / 0.5);
+    @apply bg-opacity-30;
+    background-color: inherit;
+    border-opacity: 0.4;
     transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   }
 
   .content-card {

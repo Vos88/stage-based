@@ -4,7 +4,7 @@ export const kMeans: ConceptNode = {
   id: 'k-means',
   title: 'K-Means',
   description: 'Partitioning data into k clusters',
-  color: "bg-gradient-to-br from-blue-500 to-indigo-600",
+  color: "bg-gradient-to-br from-cyan-400 to-sky-500",
   overview: `K-means clustering partitions data into k clusters by minimizing within-cluster sum of squares. The objective function is:
 
 $$\\min_{\\{S_1, S_2, \\ldots, S_k\\}} \\sum_{i=1}^{k} \\sum_{x \\in S_i} ||x - \\mu_i||^2$$
@@ -21,7 +21,7 @@ export const gmm: ConceptNode = {
   id: 'gmm',
   title: 'Gaussian Mixture Models (GMM)',
   description: 'Probabilistic clustering with Gaussian distributions',
-  color: "bg-gradient-to-br from-purple-500 to-violet-600",
+  color: "bg-gradient-to-br from-sky-400 to-cyan-500",
   overview: 'GMM assumes data comes from a mixture of Gaussian distributions and estimates their parameters.',
   howItWorks: 'Uses Expectation-Maximization algorithm to estimate mixture components and assignment probabilities.',
   applications: ['Speech recognition', 'Computer vision', 'Density estimation', 'Anomaly detection'],
@@ -34,7 +34,7 @@ export const dbscan: ConceptNode = {
   id: 'dbscan',
   title: 'DBSCAN',
   description: 'Density-based clustering algorithm',
-  color: "bg-gradient-to-br from-teal-500 to-green-600",
+  color: "bg-gradient-to-br from-blue-400 to-cyan-500",
   overview: 'DBSCAN groups together points in high-density areas and marks points in low-density areas as outliers.',
   howItWorks: 'Identifies core points with sufficient neighbors and expands clusters by connecting density-reachable points.',
   applications: ['Anomaly detection', 'Image processing', 'Social network analysis', 'Spatial data analysis'],
@@ -47,7 +47,7 @@ export const pca: ConceptNode = {
   id: 'pca',
   title: 'Principal Component Analysis (PCA)',
   description: 'Linear dimensionality reduction technique',
-  color: "bg-gradient-to-br from-indigo-500 to-purple-600",
+  color: "bg-gradient-to-br from-sky-400 to-blue-500",
   overview: `PCA reduces dimensionality by projecting data onto principal components that capture maximum variance. For a data matrix $X$ with $n$ samples and $p$ features, PCA finds the eigenvectors of the covariance matrix $\\Sigma = \\frac{1}{n-1}X^TX$.
 
 The first principal component $w_1$ maximizes:
@@ -66,7 +66,7 @@ export const tSne: ConceptNode = {
   id: 't-sne',
   title: 't-SNE',
   description: 'Non-linear dimensionality reduction technique for visualization',
-  color: "bg-gradient-to-br from-cyan-500 to-blue-600",
+  color: "bg-gradient-to-br from-cyan-400 to-blue-500",
   overview: 't-SNE preserves local structure by modeling pairwise similarities in high and low dimensions.',
   howItWorks: 'Minimizes divergence between probability distributions of pairwise similarities in original and reduced space.',
   applications: ['Data visualization', 'Exploratory data analysis', 'Cluster visualization', 'Image analysis'],
