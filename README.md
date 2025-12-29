@@ -48,3 +48,25 @@ $$y = \\beta_0 + \\beta_1 x + \\varepsilon$$
 ```
 
 The LaTeX rendering is automatically applied to all content sections including overview, how it works, applications, advantages, and limitations.
+
+## Deploy to GitHub pages
+
+This repo is already configured for GitHub Pages.
+
+Prerequisites:
+
+- A GitHub repository with this code pushed  
+- Pages enabled (Repository → Settings → Pages → Deploy from: GitHub Actions or gh-pages branch)
+
+Commands (Windows PowerShell or any shell):
+
+```
+# Install dependencies
+npm install
+
+# Build for GitHub Pages (outputs to dist-pages/ and sets base to /AI-Explorer/)
+npm run build:pages
+
+# Publish to the gh-pages branch
+npm run deploy
+```
