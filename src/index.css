@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* AI/ML Concept Explorer Design System */
 
 @layer base {
   :root {
