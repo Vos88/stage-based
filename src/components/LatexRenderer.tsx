@@ -138,101 +138,146 @@ export function LatexRenderer({ content, className = "" }: LatexRendererProps) {
     })
   );
 
-  // Render lines with simple list detection
-  const rendered: React.ReactNode[] = [];
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-    // If this line is a standalone block math, render it in place
-    if (line.length === 1 && line[0].type === 'block-math') {
-      rendered.push(
-        <div key={`bm-inline-${i}`} className="my-4 flex justify-center">
-          <BlockMath math={line[0].content} />
+  // Render lines with hierarchical nested list detection
+  type Token = { indent: number; marker: 'ol' | 'ul' | null; parts: Part[] };
+
+  const tokens: Token[] = lines.map(l => {
+    const firstText = l.find(p => p.type === 'text')?.content || '';
+    const match = firstText.match(/^(\s*)(\d+\.\s+|[-*]\s+)?(.*)$/);
+    const indent = match ? match[1].length : 0;
+    const markerRaw = match ? match[2] : null;
+    const marker = markerRaw ? (markerRaw.trim().endsWith('.') ? 'ol' : 'ul') : null;
+
+    // Build new parts array where the first text part has the leading marker removed
+    const newParts: Part[] = [];
+    let removed = false;
+    l.forEach(p => {
+      if (!removed && p.type === 'text') {
+        // Use the part after the marker (the third capture group) if present
+        const contentAfter = match ? match[3] : p.content;
+        if (contentAfter.length > 0) newParts.push({ type: 'text', content: contentAfter });
+        removed = true;
+      } else {
+        newParts.push(p);
+      }
+    });
+
+    return { indent, marker, parts: newParts };
+  });
+
+  // Convert tokens into a tree of nodes: paragraphs, nested lists, and block-math
+  type ListItem = { parts: Part[]; children: Array<any> };
+  type ListNode = { nodeType: 'list'; listType: 'ol' | 'ul'; level: number; items: ListItem[] };
+  type ParaNode = { nodeType: 'para'; parts: Part[] };
+  type BlockMathNode = { nodeType: 'block-math'; content: string };
+  const nodes: Array<ListNode | ParaNode | BlockMathNode> = [];
+
+  let currentList: ListNode | null = null;
+
+  const findListAtLevel = (level: number, listType: 'ol' | 'ul') => {
+    // Search nodes from the end for a list with matching level and type
+    for (let j = nodes.length - 1; j >= 0; j--) {
+      const n = nodes[j] as any;
+      if (n.nodeType === 'list' && n.level === level && n.listType === listType) return n as ListNode;
+    }
+    return null;
+  };
+
+  tokens.forEach(tok => {
+    const level = Math.floor(tok.indent / 2);
+    // If this token represents a standalone block math, render as block-math node
+    if (!tok.marker && tok.parts.length === 1 && tok.parts[0].type === 'block-math') {
+      currentList = null;
+      nodes.push({ nodeType: 'block-math', content: tok.parts[0].content });
+      return;
+    }
+
+    if (!tok.marker) {
+      // plain paragraph line
+      currentList = null;
+      nodes.push({ nodeType: 'para', parts: tok.parts });
+      return;
+    }
+
+    if (!currentList) {
+      // start a new top-level list
+      const newList: ListNode = { nodeType: 'list', listType: tok.marker, level, items: [{ parts: tok.parts, children: [] }] };
+      nodes.push(newList);
+      currentList = newList;
+      return;
+    }
+
+    if (level === currentList.level && tok.marker === currentList.listType) {
+      // same list level and type
+      currentList.items.push({ parts: tok.parts, children: [] });
+      return;
+    }
+
+    if (level > currentList.level) {
+      // nested list: attach to last item of currentList
+      const lastItem = currentList.items[currentList.items.length - 1];
+      if (!lastItem) {
+        // ensure there's at least one item
+        currentList.items.push({ parts: [], children: [] });
+      }
+      const nestedList: ListNode = { nodeType: 'list', listType: tok.marker, level, items: [{ parts: tok.parts, children: [] }] };
+      // attach nested list under the lastItem.children
+      (currentList.items[currentList.items.length - 1].children ||= []).push(nestedList);
+      currentList = nestedList;
+      return;
+    }
+
+    // level < currentList.level or different list type: try to find an existing list at that level
+    const found = findListAtLevel(level, tok.marker);
+    if (found) {
+      found.items.push({ parts: tok.parts, children: [] });
+      currentList = found;
+      return;
+    }
+
+    // fallback: create a new top-level list
+    const fallback: ListNode = { nodeType: 'list', listType: tok.marker, level, items: [{ parts: tok.parts, children: [] }] };
+    nodes.push(fallback);
+    currentList = fallback;
+  });
+
+  // Recursive render for nodes
+  const renderParts = renderInlineParts;
+
+  const renderListNode = (list: ListNode, keyBase: string) => {
+    const Tag = list.listType === 'ol' ? 'ol' : 'ul';
+    return (
+      <Tag key={keyBase} className={list.listType === 'ol' ? 'list-decimal pl-6' : 'list-disc pl-6'}>
+        {list.items.map((it, idx) => (
+          <li key={`${keyBase}-li-${idx}`} className="mb-1">
+            {renderParts(it.parts, `${keyBase}-item-${idx}`)}
+            {it.children && it.children.length > 0 && it.children.map((child: any, cidx: number) => (
+              // child is a ListNode
+              renderListNode(child as ListNode, `${keyBase}-child-${idx}-${cidx}`)
+            ))}
+          </li>
+        ))}
+      </Tag>
+    );
+  };
+
+  const rendered: React.ReactNode[] = nodes.map((n, idx) => {
+    if ((n as ParaNode).nodeType === 'para') {
+      return (
+        <p key={`p-${idx}`} className="mb-3">
+          {renderParts((n as ParaNode).parts, `p-${idx}`)}
+        </p>
+      );
+    }
+    if ((n as BlockMathNode).nodeType === 'block-math') {
+      return (
+        <div key={`bm-${idx}`} className="my-4 flex justify-center">
+          <BlockMath math={(n as BlockMathNode).content} />
         </div>
       );
-      i++;
-      continue;
     }
-    // build string of the line's leading text to detect list markers
-    const leadingText = line.find(p => p.type === 'text')?.content.trimStart() || '';
-
-    const orderedMatch = leadingText.match(/^\d+\.\s+/);
-    const unorderedMatch = leadingText.match(/^[-*]\s+/);
-
-    if (orderedMatch) {
-      // collect consecutive ordered lines
-      const items: Part[][] = [];
-      while (i < lines.length) {
-        const l = lines[i];
-        const firstText = l.find(p => p.type === 'text')?.content || '';
-        if (!firstText.match(/^\d+\.\s+/)) break;
-        // remove leading marker from the first text part
-        const newParts: Part[] = [];
-        let removed = false;
-        l.forEach(p => {
-          if (!removed && p.type === 'text') {
-            const txt = p.content.replace(/^\d+\.\s+/, '');
-            if (txt.length > 0) newParts.push({ type: 'text', content: txt });
-            removed = true;
-          } else {
-            newParts.push(p);
-          }
-        });
-        items.push(newParts);
-        i++;
-      }
-      rendered.push(
-        <ol key={`ol-${i}`} className="list-decimal pl-6">
-          {items.map((partsItem, idx) => (
-            <li key={idx} className="mb-1">
-              {renderInlineParts(partsItem, `ol-${i}-${idx}`)}
-            </li>
-          ))}
-        </ol>
-      );
-      continue;
-    }
-
-    if (unorderedMatch) {
-      const items: Part[][] = [];
-      while (i < lines.length) {
-        const l = lines[i];
-        const firstText = l.find(p => p.type === 'text')?.content || '';
-        if (!firstText.match(/^[-*]\s+/)) break;
-        const newParts: Part[] = [];
-        let removed = false;
-        l.forEach(p => {
-          if (!removed && p.type === 'text') {
-            const txt = p.content.replace(/^[-*]\s+/, '');
-            if (txt.length > 0) newParts.push({ type: 'text', content: txt });
-            removed = true;
-          } else {
-            newParts.push(p);
-          }
-        });
-        items.push(newParts);
-        i++;
-      }
-      rendered.push(
-        <ul key={`ul-${i}`} className="list-disc pl-6">
-          {items.map((partsItem, idx) => (
-            <li key={idx} className="mb-1">
-              {renderInlineParts(partsItem, `ul-${i}-${idx}`)}
-            </li>
-          ))}
-        </ul>
-      );
-      continue;
-    }
-
-    // Regular paragraph/line: render inline parts and preserve single line breaks
-    rendered.push(
-      <p key={`p-${i}`} className="mb-3">
-        {renderInlineParts(line, `p-${i}`)}
-      </p>
-    );
-    i++;
-  }
+    return renderListNode(n as ListNode, `list-${idx}`);
+  });
 
   // Final render
   return (
