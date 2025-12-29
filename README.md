@@ -60,7 +60,7 @@ Prerequisites:
 
 Commands (Windows PowerShell or any shell):
 
-```
+```PowerShell
 # Install dependencies
 npm install
 
