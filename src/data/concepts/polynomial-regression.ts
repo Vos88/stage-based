@@ -18,8 +18,8 @@ Here, $\\beta_0$ represents the intercept, $\\beta_1, \\beta_2, \\ldots, \\beta_
 The key innovation enabling polynomial regression is the feature transformation: we can reframe the problem as multiple linear regression on the transformed feature space. We construct a polynomial feature matrix $\\mathbf{X}_{\\text{poly}}$ where each row represents an observation and each column represents a polynomial term:
 
 $$\\mathbf{X}_{\\text{poly}} = 
-\\begin{bmatrix} 1 & x_1 & x_1^2 & \\cdots & x_1^d \\\\\ 
-1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\\ 
+\\begin{bmatrix} 1 & x_1 & x_1^2 & \\cdots & x_1^d \\\\ 
+1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\
 \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 
 1 & x_n & x_n^2 & \\cdots & x_n^d 
 \\end{bmatrix}$$

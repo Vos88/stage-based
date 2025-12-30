@@ -11,7 +11,7 @@ $$P(y=1\\mid x) = \\sigma(x^T\\beta)\\quad\\text{where }\\sigma(z)=\\frac{1}{1+e
 
 Equivalently, the log-odds (logit) is linear in x:
 
-$$\operatorname{logit}\\,P(y=1\\mid x)=\\log\\frac{P(y=1\\mid x)}{1-P(y=1\\mid x)}=x^T\\beta.$$ 
+$$\\operatorname{logit}\\,P(y=1\\mid x)=\\log\\frac{P(y=1\\mid x)}{1-P(y=1\\mid x)}=x^T\\beta.$$ 
 
 For K>2 classes the model generalises via the softmax mapping:
 
