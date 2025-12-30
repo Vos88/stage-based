@@ -1,6 +1,6 @@
 import { ConceptNode } from '../../../types';
 import { qLearning } from './Q-learning';
-import { dqn } from './Deep Q-Networks (DQN)';
+import { dqn } from './Deep Q-Networks';
 import { policyGradient } from './Policy Gradient Methods';
 
 export const reinforcementLearning: ConceptNode = {

@@ -11,4 +11,3 @@ export interface ConceptNode {
   limitations?: string[];
   codeExample?: string;
 }
-

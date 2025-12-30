@@ -1,5 +1,5 @@
 import { ConceptNode } from '../../../../types';
-import { gradientBoosting } from './Gradient Boosting/Gradient Boosting';
+import { gradientBoosting } from './Gradient Boosting/gradient-boosting-category';
 import { adaboost } from './Adaboost';
 
 export const boosting: ConceptNode = {

@@ -12,4 +12,3 @@ export const symbolicAi: ConceptNode = {
   limitations: ['Difficulty handling uncertainty', 'Brittle to exceptions', 'Limited learning capabilities'],
   children: []
 };
-

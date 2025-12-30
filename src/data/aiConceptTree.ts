@@ -1,6 +1,6 @@
 import { ConceptNode } from './types';
 import { symbolicAi } from './concepts/Symbolic AI/symbolic-ai';
-import { machineLearning } from './concepts/Machine learning/machine-learning';
+import { machineLearning } from './concepts/Machine learning/machine-learning-category';
 
 export type { ConceptNode } from './types';
 

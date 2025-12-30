@@ -1,5 +1,5 @@
 import { ConceptNode } from '../../types';
-import { supervisedLearning } from './Supervised learning/supervised-learning';
+import { supervisedLearning } from './Supervised learning/supervised-learning-category';
 import { unsupervisedLearning } from './Unsupervised learning/unsupervised-learning-category';
 import { reinforcementLearning } from './Reinforcement learning/reinforcement-learning-category';
 import { neuralNetworks } from './Neural networks/neural-networks-category';
@@ -18,4 +18,3 @@ export const machineLearning: ConceptNode = {
     ensembleLearning
   ]
 };
-
