@@ -1,5 +1,9 @@
-import { ConceptNode } from '../types';
-import { bagging, boosting, stacking, voting, averaging } from './ensemble-learning';
+import { ConceptNode } from '../../../types';
+import { bagging } from './Bagging/Bagging'
+import { boosting} from './Boosting/Boosting'
+import { stacking } from './Stacking'
+import { voting } from './Voting'
+import { averaging } from './Averaging';
 
 export const ensembleLearning: ConceptNode = {
   id: 'ensemble-learning',
@@ -14,4 +18,3 @@ export const ensembleLearning: ConceptNode = {
     averaging
   ]
 };
-

@@ -1,10 +1,10 @@
-import { ConceptNode } from '../types';
+import { ConceptNode } from '../../../../types';
 
 export const polynomialRegression: ConceptNode = {
   id: 'polynomial-regression',
   title: 'Polynomial Regression',
   description: 'Fitting polynomial relationships between variables to capture non-linear patterns',
-  color: "bg-gradient-to-br from-teal-500 to-cyan-600",
+  color: "bg-gradient-to-br from-lime-400 to-green-500",
   overview: `Many real-world phenomena exhibit non-linear behavior that cannot be adequately captured by a simple straight-line model. Consider the energy consumption of a building as a function of temperature: consumption is high at both extreme cold and extreme heat (due to heating and cooling requirements), creating a U-shaped curve. Linear regression, which assumes a constant change in the response for each unit change in the predictor, would fail to capture this essential feature of the underlying relationship.
 
 Polynomial regression addresses this limitation by extending the linear regression framework to model curved relationships. The fundamental insight is deceptively simple: we can include higher-order polynomial terms of the original predictor as additional features in our regression model. Despite its ability to capture non-linear patterns in the data, polynomial regression remains linear with respect to its parameters, allowing us to leverage the efficient and well-understood Ordinary Least Squares (OLS) machinery from linear regression.
@@ -18,8 +18,8 @@ Here, $\\beta_0$ represents the intercept, $\\beta_1, \\beta_2, \\ldots, \\beta_
 The key innovation enabling polynomial regression is the feature transformation: we can reframe the problem as multiple linear regression on the transformed feature space. We construct a polynomial feature matrix $\\mathbf{X}_{\\text{poly}}$ where each row represents an observation and each column represents a polynomial term:
 
 $$\\mathbf{X}_{\\text{poly}} = 
-\\begin{bmatrix} 1 & x_1 & x_1^2 & \\cdots & x_1^d \\\\\ 
-1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\\ 
+\\begin{bmatrix} 1 & x_1 & x_1^2 & \\cdots & x_1^d \\\\ 
+1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\
 \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 
 1 & x_n & x_n^2 & \\cdots & x_n^d 
 \\end{bmatrix}$$

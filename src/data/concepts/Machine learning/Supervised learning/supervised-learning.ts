@@ -1,18 +1,18 @@
-import { ConceptNode } from '../types';
+import { ConceptNode } from '../../../types';
 import { 
   polynomialRegression, 
   linearRegression, 
   ridgeLasso, 
   decisionTreeRegressor, 
   knnRegressor 
-} from './regression';
+} from './Regression/regression';
 import { 
   logisticRegression, 
   naiveBayes, 
   decisionTreeClassifier, 
   svm, 
   knn 
-} from './classification';
+} from './Classification/classification';
 
 export const regression: ConceptNode = {
   id: 'regression',

@@ -1,4 +1,4 @@
-import { ConceptNode } from '../types';
+import { ConceptNode } from '../../../types';
 import { mlp, cnn, transformers, rnn, gan, diffusion, autoencoders } from './neural-networks';
 
 export const neuralNetworks: ConceptNode = {

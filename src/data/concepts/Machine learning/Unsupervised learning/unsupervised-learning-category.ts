@@ -1,4 +1,4 @@
-import { ConceptNode } from '../types';
+import { ConceptNode } from '../../../types';
 import { kMeans, gmm, dbscan, pca, tSne } from './unsupervised-learning';
 
 export const clustering: ConceptNode = {
