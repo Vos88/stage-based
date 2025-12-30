@@ -42,6 +42,13 @@ This project includes LaTeX math rendering capabilities using KaTeX. Mathematica
 
 The LaTeX rendering is automatically applied to all content sections including overview, how it works, applications, advantages, and limitations.
 
+Moreover, the LaTeX rendering is setup to work with (nested) lists. Meaning that both lists like
+
+- this is a list item
+  - this is a nested list item
+
+are rendered correctly.
+
 ## Project deployment
 
 This repo is already configured to deploy to GitHub pages.  
