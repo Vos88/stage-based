@@ -1,6 +1,8 @@
 # Project info
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Link to GitHub pages [AI-flow-guide](https://vos88.github.io/ai-flow-guide/).
+
+## Project setup
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -38,13 +40,41 @@ This project includes LaTeX math rendering capabilities using KaTeX. Mathematica
 - **Inline math**: Use single dollar signs `$...$` for inline mathematical expressions
 - **Block math**: Use double dollar signs `$$...$$` for displayed mathematical equations
 
-### Examples: # noqa:MD026
+The LaTeX rendering is automatically applied to all content sections including overview, how it works, applications, advantages, and limitations.
 
-```latex
-Inline math: The slope is $\\beta_1 = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sum(x_i - \\bar{x})^2}$
+## Project deployment
 
-Block math: 
-$$y = \\beta_0 + \\beta_1 x + \\varepsilon$$
+This repo is already configured to deploy to GitHub pages.  
+To setup your forked repo, prerequisites are required.
+
+### Prerequisits
+
+- Installed `gh-pages` package.
+- Pages enabled in GitHub repo: Repository -> Settings -> Pages -> Deploy from: gh-pages branch (create this branch).
+
+The `vite.config.ts` needs to point towards the `dist` folder, a folder that gh-pages creates to succesfully deploy the project. In `vite.config.ts` ensure that base is set with the project name:
+
+- `base: mode == 'pages' ? '/{project_name}/'`.
+
+Additionally, in `index.html` the `<BrowserRouter basename>` needs to be set to:
+
+- `<{window.location.hostname.includes('github.io') ? "project_name" : "/"}>`
+
+To deploy the project, run the following commands in any terminal
+
+```Powershell
+# Step1: build the pages
+npm build:pages
+
+# Step 2: deploy to pages
+npm run deploy
 ```
 
-The LaTeX rendering is automatically applied to all content sections including overview, how it works, applications, advantages, and limitations.
+If npm does not recogise commands, add to `package.json`:
+
+```python
+  "scripts": {
+    "build:pages": "vite build --mode pages",
+    "deploy": "gh-pages -d dist"
+  },
+```
