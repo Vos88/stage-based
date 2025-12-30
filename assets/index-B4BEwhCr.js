@@ -280,7 +280,7 @@ The key innovation enabling polynomial regression is the feature transformation:
 
 $$\\mathbf{X}_{\\text{poly}} = 
 \\begin{bmatrix} 1 & x_1 & x_1^2 & \\cdots & x_1^d \\\\ 
-1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\ 
+1 & x_2 & x_2^2 & \\cdots & x_2^d \\\\
 \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 
 1 & x_n & x_n^2 & \\cdots & x_n^d 
 \\end{bmatrix}$$
@@ -1014,7 +1014,7 @@ $$P(y=1\\mid x) = \\sigma(x^T\\beta)\\quad\\text{where }\\sigma(z)=\\frac{1}{1+e
 
 Equivalently, the log-odds (logit) is linear in x:
 
-$$operatorname{logit}\\,P(y=1\\mid x)=\\log\\frac{P(y=1\\mid x)}{1-P(y=1\\mid x)}=x^T\\beta.$$ 
+$$\\operatorname{logit}\\,P(y=1\\mid x)=\\log\\frac{P(y=1\\mid x)}{1-P(y=1\\mid x)}=x^T\\beta.$$ 
 
 For K>2 classes the model generalises via the softmax mapping:
 
