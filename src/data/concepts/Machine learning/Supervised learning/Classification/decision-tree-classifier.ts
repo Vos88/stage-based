@@ -1,4 +1,4 @@
-import { ConceptNode } from '../types';
+import { ConceptNode } from '../../../../types';
 
 export const decisionTreeClassifier: ConceptNode = {
   id: 'decision-tree-classifier',
