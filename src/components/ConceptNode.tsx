@@ -57,9 +57,9 @@ const colorMap: Record<string, string> = {
   "bg-gradient-to-br from-orange-500 to-amber-600": "bg-orange-50 border-orange-200",
   "bg-gradient-to-br from-orange-400 to-amber-500": "bg-orange-50 border-orange-200",
   "bg-gradient-to-br from-orange-300 to-amber-400": "bg-orange-50 border-orange-200",
-  "bg-gradient-to-br from-yellow-500 to-amber-600": "bg-yellow-50 border-yellow-200",
-  "bg-gradient-to-br from-amber-400 to-yellow-500": "bg-amber-50 border-amber-200",
-  "bg-gradient-to-br from-yellow-400 to-orange-500": "bg-yellow-50 border-yellow-200",
+  "bg-gradient-to-br from-yellow-400 to-lime-500": "bg-lime-50 border-lime-200",
+  "bg-gradient-to-br from-rose-400 to-orange-500": "bg-rose-50 border-rose-200",
+  "bg-gradient-to-br from-red-400 to-rose-500": "bg-red-50 border-red-200",
   
   // Root and other
   "bg-gradient-to-br from-purple-600 to-blue-600": "bg-purple-50 border-purple-200",
