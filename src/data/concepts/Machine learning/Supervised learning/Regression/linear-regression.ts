@@ -3,7 +3,7 @@ import { ConceptNode } from '../../../../types';
 export const linearRegression: ConceptNode = {
   id: 'linear-regression',
   title: 'Linear Regression',
-  color: "bg-gradient-to-br from-green-400 to-emerald-500",
+  color: "bg-gradient-to-br from-teal-400 to-emerald-500",
   description: 'A fundamental machine learning method for modeling relationships between variables by fitting a linear equation to observed data.',
   overview:
    `Linear regression stands as one of the most fundamental and widely-used machine learning algorithms, serving as the foundation for much of statistical learning theory and practice. The core objective is elegantly simple: to model the relationship between a dependent variable (the target we wish to predict) and one or more independent variables (the features we observe) by fitting a linear equation to empirical data.

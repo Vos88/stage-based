@@ -4,7 +4,7 @@ export const knn: ConceptNode = {
   id: 'knn',
   title: 'K-Nearest Neighbors (KNN)',
   description: 'Instance-based classification using majority vote of nearest neighbors',
-  color: "bg-gradient-to-br from-purple-500 to-violet-600",
+  color: "bg-gradient-to-br from-pink-400 to-purple-500",
   overview: `K-Nearest Neighbors (KNN) classification is a non-parametric, instance-based method that classifies observations based on the class labels of their $k$ nearest neighbors in feature space. Rather than learning a fixed, global model during training, KNN defers computation to prediction time—a "lazy learner" that simply retains all training data and applies local voting rules on-the-fly. This locality-based approach enables KNN to capture complex, adaptive decision boundaries without assuming any parametric form.
 
 The core principle is intuitive: observations that are similar in feature space should share similar class labels. When presented with a new observation, KNN identifies the $k$ training examples that lie closest to this point according to a distance metric and assigns the most common class among these neighbors as the prediction. The choice of $k$ directly governs the bias-variance tradeoff: small $k$ yields adaptive, high-variance predictions based on very local information, while large $k$ produces smooth, high-bias predictions that reflect broader neighborhoods. This simple yet flexible framework enables KNN to handle complex, non-linear decision boundaries and adapt to local data structure.`,

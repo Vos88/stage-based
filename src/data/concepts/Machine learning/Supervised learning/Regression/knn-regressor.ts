@@ -4,7 +4,7 @@ export const knnRegressor: ConceptNode = {
   id: 'knn-regressor',
   title: 'K-Nearest Neighbors Regressor',
   description: 'Instance-based non-parametric regression using local averaging',
-  color: "bg-gradient-to-br from-green-500 to-lime-600",
+  color: "bg-gradient-to-br from-lime-400 to-emerald-500",
   overview: `K-Nearest Neighbors (KNN) regression represents a fundamentally different paradigm from parametric regression methods. Rather than learning a fixed functional relationship through parameter estimation, KNN is an instance-based learning algorithm that retains the entire training dataset and makes predictions by exploiting local patterns in the data. This approach is sometimes called a "lazy learner" because it defers computation until prediction time: no fitting or parameter estimation occurs during training, only during inference.
 
 The core principle underlying KNN is elegantly simple: observations that are similar in feature space should have similar target values. Formally, similarity is quantified through a distance metric in the feature space. When presented with a new, unobserved data point, KNN identifies the $k$ training examples that lie closest to this point and generates a prediction by averaging their target values. The choice of $k$ determines the locality of the prediction: small values of $k$ yield predictions based on very nearby neighbors (high variability, low bias), while large values smooth predictions over broader neighborhoods (low variability, high bias). This locality-based approach enables KNN to capture complex, non-linear relationships and adaptive local structure without imposing any parametric assumptions on the underlying functional form.`,

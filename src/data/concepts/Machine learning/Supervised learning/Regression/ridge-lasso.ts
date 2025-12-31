@@ -4,7 +4,7 @@ export const ridgeLasso: ConceptNode = {
   id: 'ridge-lasso',
   title: 'Ridge / Lasso Regression',
   description: 'Regularized regression techniques that prevent overfitting through penalty terms',
-  color: "bg-gradient-to-br from-teal-400 to-cyan-500",
+  color: "bg-gradient-to-br from-cyan-400 to-teal-500",
   overview: `In many practical applications, fitting a linear regression model to high-dimensional data presents a fundamental challenge: when the number of features $p$ is large relative to the number of observations $n$, or when features exhibit substantial multicollinearity, standard Ordinary Least Squares regression produces unstable and poorly generalizing models. Ridge and Lasso regression address this critical problem through the introduction of regularization—penalty terms that constrain the magnitude of fitted coefficients, thereby trading a small amount of bias for substantial reductions in variance.
 
 Ridge regression, also known as L2 regularization, introduces a penalty term proportional to the sum of squared coefficients into the cost function:

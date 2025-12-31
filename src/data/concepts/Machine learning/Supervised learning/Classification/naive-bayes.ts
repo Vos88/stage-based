@@ -4,7 +4,7 @@ export const naiveBayes: ConceptNode = {
   id: 'naive-bayes',
   title: 'Naive Bayes',
   description: 'Probabilistic classifier based on Bayes theorem with feature independence assumption',
-  color: "bg-gradient-to-br from-indigo-400 to-purple-500",
+  color: "bg-gradient-to-br from-fuchsia-400 to-violet-500",
   overview: `Naive Bayes is a probabilistic classification algorithm based on Bayes' theorem with the "naive" assumption that features are conditionally independent given the class. Despite this simplifying assumption, Naive Bayes often performs remarkably well in practice, especially for text classification and high-dimensional problems.
 
 Bayes' theorem states:

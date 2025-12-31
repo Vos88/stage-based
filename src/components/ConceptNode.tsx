@@ -7,22 +7,22 @@ interface ConceptNodeProps {
 
 // Map gradient colors to light background colors
 const colorMap: Record<string, string> = {
-  // Supervised Learning - Green family
+  // Supervised Learning & Regression - Green/Emerald/Teal family
   "bg-gradient-to-br from-green-500 to-emerald-600": "bg-green-50 border-green-200",
   "bg-gradient-to-br from-emerald-500 to-teal-600": "bg-emerald-50 border-emerald-200",
-  "bg-gradient-to-br from-green-400 to-emerald-500": "bg-green-50 border-green-200",
-  "bg-gradient-to-br from-lime-400 to-green-500": "bg-lime-50 border-lime-200",
-  "bg-gradient-to-br from-teal-400 to-cyan-500": "bg-teal-50 border-teal-200",
-  "bg-gradient-to-br from-emerald-400 to-teal-500": "bg-emerald-50 border-emerald-200",
-  "bg-gradient-to-br from-green-500 to-lime-600": "bg-green-50 border-green-200",
+  "bg-gradient-to-br from-emerald-400 to-green-500": "bg-emerald-50 border-emerald-200",
+  "bg-gradient-to-br from-teal-400 to-emerald-500": "bg-teal-50 border-teal-200",
+  "bg-gradient-to-br from-cyan-400 to-teal-500": "bg-cyan-50 border-cyan-200",
+  "bg-gradient-to-br from-green-400 to-teal-500": "bg-green-50 border-green-200",
+  "bg-gradient-to-br from-lime-400 to-emerald-500": "bg-lime-50 border-lime-200",
   
-  // Classification - Purple family
+  // Classification - Purple/Violet/Fuchsia family
   "bg-gradient-to-br from-violet-500 to-purple-600": "bg-violet-50 border-violet-200",
-  "bg-gradient-to-br from-purple-400 to-violet-500": "bg-purple-50 border-purple-200",
-  "bg-gradient-to-br from-indigo-400 to-purple-500": "bg-indigo-50 border-indigo-200",
-  "bg-gradient-to-br from-fuchsia-400 to-purple-500": "bg-fuchsia-50 border-fuchsia-200",
-  "bg-gradient-to-br from-violet-400 to-purple-600": "bg-violet-50 border-violet-200",
-  "bg-gradient-to-br from-purple-500 to-violet-600": "bg-purple-50 border-purple-200",
+  "bg-gradient-to-br from-violet-400 to-purple-500": "bg-violet-50 border-violet-200",
+  "bg-gradient-to-br from-fuchsia-400 to-violet-500": "bg-fuchsia-50 border-fuchsia-200",
+  "bg-gradient-to-br from-purple-400 to-fuchsia-500": "bg-purple-50 border-purple-200",
+  "bg-gradient-to-br from-indigo-400 to-violet-500": "bg-indigo-50 border-indigo-200",
+  "bg-gradient-to-br from-pink-400 to-purple-500": "bg-pink-50 border-pink-200",
   
   // Unsupervised Learning - Cyan family
   "bg-gradient-to-br from-cyan-500 to-teal-600": "bg-cyan-50 border-cyan-200",
@@ -47,7 +47,6 @@ const colorMap: Record<string, string> = {
   "bg-gradient-to-br from-blue-500 to-indigo-600": "bg-blue-50 border-blue-200",
   "bg-gradient-to-br from-indigo-500 to-violet-600": "bg-indigo-50 border-indigo-200",
   "bg-gradient-to-br from-violet-400 to-indigo-500": "bg-violet-50 border-violet-200",
-  "bg-gradient-to-br from-indigo-400 to-violet-500": "bg-indigo-50 border-indigo-200",
   "bg-gradient-to-br from-blue-400 to-indigo-600": "bg-blue-50 border-blue-200",
   
   // Ensemble Learning - Amber/Orange family
