@@ -4,7 +4,7 @@ export const stacking: ConceptNode = {
   id: 'stacking',
   title: 'Stacking',
   description: 'Combining multiple models using a meta-learner',
-  color: "bg-gradient-to-br from-pink-400 to-rose-500",
+  color: "bg-gradient-to-br from-red-400 to-rose-500",
   overview: 'Stacking trains a meta-model to optimally combine predictions from multiple base models.',
   howItWorks: 'Base models make predictions, then meta-learner is trained on these predictions to make final prediction.',
   applications: ['Machine learning competitions', 'Complex prediction tasks', 'Model combination'],

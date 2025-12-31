@@ -5,14 +5,14 @@ import {
   ridgeLasso, 
   decisionTreeRegressor, 
   knnRegressor 
-} from './Regression/regression';
+} from './Regression/regression-category';
 import { 
   logisticRegression, 
   naiveBayes, 
   decisionTreeClassifier, 
   svm, 
   knn 
-} from './Classification/classification';
+} from './Classification/classification-category';
 
 export const regression: ConceptNode = {
   id: 'regression',

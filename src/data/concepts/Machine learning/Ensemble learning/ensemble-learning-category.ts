@@ -1,6 +1,6 @@
 import { ConceptNode } from '../../../types';
 import { bagging } from './Bagging/bagging-category'
-import { boosting} from './Boosting/boosting-category'
+import { boosting } from './Boosting/boosting-category'
 import { stacking } from './Stacking'
 import { voting } from './Voting'
 import { averaging } from './Averaging';

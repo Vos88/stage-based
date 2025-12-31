@@ -4,7 +4,7 @@ export const averaging: ConceptNode = {
   id: 'averaging',
   title: 'Averaging',
   description: 'Combining predictions by averaging outputs from multiple models, typically used in regression',
-  color: "bg-gradient-to-br from-red-500 to-orange-600",
+  color: "bg-gradient-to-br from-orange-200 to-red-400",
   overview: 'Model averaging combines predictions from multiple models by computing their weighted or simple average.',
   howItWorks: 'Trains multiple models independently and combines their predictions through averaging.',
   applications: ['Regression tasks', 'Time series forecasting', 'Risk modeling', 'Ensemble learning'],

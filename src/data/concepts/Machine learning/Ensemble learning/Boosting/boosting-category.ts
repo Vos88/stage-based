@@ -1,11 +1,14 @@
 import { ConceptNode } from '../../../../types';
-import { gradientBoosting } from './Gradient Boosting/gradient-boosting-category';
+import { xgboost } from './XGBoost';
 import { adaboost } from './Adaboost';
 
 export const boosting: ConceptNode = {
   id: 'boosting',
   title: 'Boosting',
-  description: 'Sequentially combining weak learners to reduce bias',
-  color: "bg-gradient-to-br from-red-500 to-rose-600",
-  children: [gradientBoosting, adaboost]
+  description: 'Sequentially training models to correct errors of previous models, improving accuracy and performance',
+  color: "bg-gradient-to-br from-orange-700 to-red-800",
+  children: [
+    adaboost,
+    xgboost
+  ]
 };

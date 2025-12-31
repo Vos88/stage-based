@@ -1,5 +1,6 @@
 import { ConceptNode } from '../../../types';
-import { kMeans, gmm, dbscan, pca, tSne } from './unsupervised-learning';
+import { kMeans, gmm, dbscan } from './Clustering/clustering-category'
+import { pca, tSne } from './Feature extraction/feature-extraction-category'
 
 export const clustering: ConceptNode = {
   id: 'clustering',
@@ -34,4 +35,3 @@ export const unsupervisedLearning: ConceptNode = {
     featureExtraction
   ]
 };
-
