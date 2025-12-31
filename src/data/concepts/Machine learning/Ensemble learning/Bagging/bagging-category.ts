@@ -5,7 +5,7 @@ export const bagging: ConceptNode = {
   id: 'bagging',
   title: 'Bagging',
   description: 'Building multiple models independently and combining their predictions to reduce variance and improve robustness',
-  color: "bg-gradient-to-br from-orange-500 to-red-600",
+  color: "bg-gradient-to-br from-amber-400 to-orange-500",
   children: [
     randomForest,
   ]

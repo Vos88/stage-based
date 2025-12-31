@@ -4,7 +4,7 @@ export const adaboost: ConceptNode = {
   id: 'adaboost',
   title: 'AdaBoost',
   description: 'Adaptive boosting method using weighted weak learners',
-  color: "bg-gradient-to-br from-red-500 to-rose-500",
+  color: "bg-gradient-to-br from-orange-400 to-amber-500",
   overview: 'AdaBoost adaptively adjusts weights of training examples based on previous classifier errors.',
   howItWorks: 'Sequentially trains weak learners on weighted datasets, increasing weights of misclassified examples.',
   applications: ['Face detection', 'Object recognition', 'Text classification', 'Medical diagnosis'],

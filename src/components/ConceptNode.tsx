@@ -34,11 +34,11 @@ const colorMap: Record<string, string> = {
   "bg-gradient-to-br from-sky-400 to-blue-500": "bg-sky-50 border-sky-200",
   "bg-gradient-to-br from-cyan-400 to-blue-500": "bg-cyan-50 border-cyan-200",
   
-  // Reinforcement Learning - Orange family
-  "bg-gradient-to-br from-orange-500 to-amber-600": "bg-orange-50 border-orange-200",
+  // Reinforcement Learning - Orange/Red family
   "bg-gradient-to-br from-orange-400 to-yellow-500": "bg-orange-50 border-orange-200",
   "bg-gradient-to-br from-orange-500 to-red-500": "bg-orange-50 border-orange-200",
-  "bg-gradient-to-br from-yellow-500 to-orange-600": "bg-yellow-50 border-yellow-200",
+  "bg-gradient-to-br from-red-500 to-orange-600": "bg-red-50 border-red-200",
+  "bg-gradient-to-br from-red-400 to-orange-500": "bg-red-50 border-red-200",
   
   // Neural Networks - Indigo family
   "bg-gradient-to-br from-indigo-500 to-blue-600": "bg-indigo-50 border-indigo-200",
@@ -50,13 +50,16 @@ const colorMap: Record<string, string> = {
   "bg-gradient-to-br from-indigo-400 to-violet-500": "bg-indigo-50 border-indigo-200",
   "bg-gradient-to-br from-blue-400 to-indigo-600": "bg-blue-50 border-blue-200",
   
-  // Ensemble Learning - Red family
-  "bg-gradient-to-br from-red-500 to-rose-600": "bg-red-50 border-red-200",
-  "bg-gradient-to-br from-red-400 to-rose-500": "bg-red-50 border-red-200",
-  "bg-gradient-to-br from-orange-500 to-red-600": "bg-orange-50 border-orange-200",
-  "bg-gradient-to-br from-red-500 to-orange-600": "bg-red-50 border-red-200",
-  "bg-gradient-to-br from-pink-400 to-rose-500": "bg-pink-50 border-pink-200",
-  "bg-gradient-to-br from-red-400 to-orange-500": "bg-red-50 border-red-200",
+  // Ensemble Learning - Amber/Orange family
+  "bg-gradient-to-br from-amber-500 to-orange-600": "bg-amber-50 border-amber-200",
+  "bg-gradient-to-br from-amber-400 to-orange-500": "bg-amber-50 border-amber-200",
+  "bg-gradient-to-br from-amber-300 to-orange-400": "bg-amber-50 border-amber-200",
+  "bg-gradient-to-br from-orange-500 to-amber-600": "bg-orange-50 border-orange-200",
+  "bg-gradient-to-br from-orange-400 to-amber-500": "bg-orange-50 border-orange-200",
+  "bg-gradient-to-br from-orange-300 to-amber-400": "bg-orange-50 border-orange-200",
+  "bg-gradient-to-br from-yellow-500 to-amber-600": "bg-yellow-50 border-yellow-200",
+  "bg-gradient-to-br from-amber-400 to-yellow-500": "bg-amber-50 border-amber-200",
+  "bg-gradient-to-br from-yellow-400 to-orange-500": "bg-yellow-50 border-yellow-200",
   
   // Root and other
   "bg-gradient-to-br from-purple-600 to-blue-600": "bg-purple-50 border-purple-200",

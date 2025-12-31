@@ -4,7 +4,7 @@ export const voting: ConceptNode = {
   id: 'voting',
   title: 'Voting',
   description: 'Combining predictions by majority',
-  color: "bg-gradient-to-br from-red-500 to-rose-600",
+  color: "bg-gradient-to-br from-amber-400 to-yellow-500",
   overview: 'Voting ensembles combine multiple models by taking majority vote (hard) or average (soft) of predictions.',
   howItWorks: 'Each model makes prediction, final prediction is determined by majority vote or weighted average.',
   applications: ['Classification tasks', 'Model combination', 'Reducing prediction variance'],
